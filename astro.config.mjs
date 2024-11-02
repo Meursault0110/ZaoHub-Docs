@@ -1,458 +1,439 @@
-import { defineConfig } from 'astro/config';
-import starlight from '@astrojs/starlight';
+import { defineConfig } from "astro/config";
+import starlight from "@astrojs/starlight";
 
 // https://astro.build/config
 export default defineConfig({
 	integrations: [
 		starlight({
-			title: 'My Docs',
+			title: "🐱‍👤 ZaoDocs",
 			customCss: [
 				// Relative path to your custom CSS file
-				'./src/styles/custom.css',
+				"./src/styles/custom.css",
 			],
 			social: {
-				github: 'https://github.com/withastro/starlight',
+				github: "https://github.com/Meursault0110",
 			},
 			sidebar: [
+				{ label: "Home", link: "/home" },
 				{
-					label: 'IT Fundamentals',
+					label: "ASIR Notes",
 					collapsed: true,
 					items: [
+						{ label: "Overview", link: "/asir-notes/overview" },
 						{
-							label: 'Computer Fundamentals',
-							items: [
-								{
-									label: 'Architecture && Organization',
-									items: [
-									],
-								},
-								{
-									label: 'Hardware',
-									items: [
-									],
-								},
-								{
-									label: 'OSs',
-									items: [
-									],
-								},
-							],
+							label: "ISO",
+							collapsed: true,
+							items: [],
 						},
 						{
-							label: 'Networking (CCNA)',
+							label: "FHW",
+							collapsed: true,
+							items: [],
+						},
+						{
+							label: "OSs",
+							collapsed: true,
+							items: [],
+						},
+						{
+							label: "Bases de Datos",
+							collapsed: true,
+							items: [],
+						},
+						{
+							label: "Redes",
+							collapsed: true,
+							items: [],
+						},
+						{
+							label: "Lenguajes de Marcas",
+							collapsed: true,
+							items: [],
+						},
+					],
+				},
+				{
+					label: "IT Fundamentals",
+					collapsed: true,
+					items: [
+						{ label: "Overview", link: "/it-fundamentals/overview" },
+						{
+							label: "Computer Fundamentals",
 							collapsed: true,
 							items: [
 								{
-									label: 'Network Fundamentals',
-									items: [
-									],
+									label: "Architecture && Organization",
+									collapsed: true,
+									items: [],
 								},
 								{
-									label: 'Network Access',
-									items: [
-									],
+									label: "Hardware",
+									collapsed: true,
+									items: [],
 								},
 								{
-									label: 'IP Connectivity',
-									items: [
-									],
-								},
-								{
-									label: 'IP Services',
-									items: [
-									],
-								},
-								{
-									label: 'Security Fundamentals',
-									items: [
-									],
-								},
-								{
-									label: 'Automation & Progammability',
-									items: [
-									],
+									label: "Operating Systems",
+									collapsed: true,
+									items: [],
 								},
 							],
 						},
 						{
-							label: 'IT Security (CISSP)',
+							label: "Networking (CCNA)",
 							collapsed: true,
 							items: [
 								{
-									label: 'Security and Risk Management',
-									items: [
-									],
+									label: "Network Fundamentals",
+									collapsed: true,
+									items: [],
 								},
 								{
-									label: 'Asset Security',
-									items: [
-									],
+									label: "Network Access",
+									collapsed: true,
+									items: [],
 								},
 								{
-									label: 'Security Architecture and Engineering',
-									items: [
-									],
+									label: "IP Connectivity",
+									collapsed: true,
+									items: [],
 								},
 								{
-									label: 'Communication and Network Security',
-									items: [
-									],
+									label: "IP Services",
+									collapsed: true,
+									items: [],
 								},
 								{
-									label: 'Identity and Access Management (IAM)',
-									items: [
-									],
+									label: "Security Fundamentals",
+									collapsed: true,
+									items: [],
 								},
 								{
-									label: 'Security Assessment and Testing',
-									items: [
-									],
+									label: "Automation & Progammability",
+									collapsed: true,
+									items: [],
 								},
-								{
-									label: 'Security Operations',
-									items: [
-									],
-								},
-								{
-									label: 'Software Development Security',
-									items: [
-									],
-								},
-							],
-						}
-					],
-				},
-				{
-					label: 'Programación',
-					collapsed: true,
-					items: [
-						{
-							label: 'Fundamentos',
-							items: [
-								{
-									label: 'Data Structures',
-									items: [
-										{
-											label: 'Architecture && Organization',
-											items: [
-											],
-										},
-										{
-											label: 'Hardware',
-											items: [
-											],
-										},
-										{
-											label: 'OSs',
-											items: [
-											],
-										},
-									],
-								},
-								{
-									label: 'Algorithms',
-									items: [
-										{
-											label: 'Architecture && Organization',
-											items: [
-											],
-										},
-										{
-											label: 'Hardware',
-											items: [
-											],
-										},
-										{
-											label: 'OSs',
-											items: [
-											],
-										},
-									],
-								},
-								{
-									label: 'Git && GitHub',
-									items: [
-										{
-											label: 'Architecture && Organization',
-											items: [
-											],
-										},
-										{
-											label: 'Hardware',
-											items: [
-											],
-										},
-										{
-											label: 'OSs',
-											items: [
-											],
-										},
-									],
-								}
 							],
 						},
 						{
-							label: 'Lenguajes',
+							label: "IT Security (CISSP)",
+							collapsed: true,
 							items: [
 								{
-									label: 'Python',
-									items: [
-										{
-											label: 'Architecture && Organization',
-											items: [
-											],
-										},
-										{
-											label: 'Hardware',
-											items: [
-											],
-										},
-										{
-											label: 'OSs',
-											items: [
-											],
-										},
-									],
+									label: "Security and Risk Management",
+									collapsed: true,
+									items: [],
 								},
 								{
-									label: 'C && C++',
-									items: [
-										{
-											label: 'Architecture && Organization',
-											items: [
-											],
-										},
-										{
-											label: 'Hardware',
-											items: [
-											],
-										},
-										{
-											label: 'OSs',
-											items: [
-											],
-										},
-									],
+									label: "Asset Security",
+									collapsed: true,
+									items: [],
 								},
 								{
-									label: 'Java',
-									items: [
-										{
-											label: 'Architecture && Organization',
-											items: [
-											],
-										},
-										{
-											label: 'Hardware',
-											items: [
-											],
-										},
-										{
-											label: 'OSs',
-											items: [
-											],
-										},
-									],
-								}
+									label: "Security Architecture and Engineering",
+									collapsed: true,
+									items: [],
+								},
+								{
+									label: "Communication and Network Security",
+									collapsed: true,
+									items: [],
+								},
+								{
+									label: "Identity and Access Management (IAM)",
+									collapsed: true,
+									items: [],
+								},
+								{
+									label: "Security Assessment and Testing",
+									collapsed: true,
+									items: [],
+								},
+								{
+									label: "Security Operations",
+									collapsed: true,
+									items: [],
+								},
+								{
+									label: "Software Development Security",
+									collapsed: true,
+									items: [],
+								},
 							],
 						},
 					],
 				},
 				{
-					label: 'Desarrollo Web',
+					label: "Programación",
 					collapsed: true,
 					items: [
+						{ label: "Overview", link: "/programming/overview" },
 						{
-							label: 'Frontend',
+							label: "Fundamentos",
+							collapsed: true,
 							items: [
 								{
-									label: 'HTML',
-									items: [
-										{
-											label: 'Architecture && Organization',
-											items: [
-											],
-										},
-										{
-											label: 'Hardware',
-											items: [
-											],
-										},
-										{
-											label: 'OSs',
-											items: [
-											],
-										},
-									],
+									label: "Data Structures",
+									collapsed: true,
+									items: [],
 								},
 								{
-									label: 'CSS',
-									items: [
-										{
-											label: 'Architecture && Organization',
-											items: [
-											],
-										},
-										{
-											label: 'Hardware',
-											items: [
-											],
-										},
-										{
-											label: 'OSs',
-											items: [
-											],
-										},
-									],
+									label: "Algorithms",
+									collapsed: true,
+									items: [],
 								},
 								{
-									label: 'JavaScript',
+									label: "Git && GitHub",
+									collapsed: true,
 									items: [
 										{
-											label: 'Architecture && Organization',
-											items: [
-											],
+											label: "Git",
+											items: [],
 										},
 										{
-											label: 'Hardware',
-											items: [
-											],
-										},
-										{
-											label: 'OSs',
-											items: [
-											],
-										},
-									],
-								},
-								{
-									label: 'React',
-									items: [
-										{
-											label: 'Architecture && Organization',
-											items: [
-											],
-										},
-										{
-											label: 'Hardware',
-											items: [
-											],
-										},
-										{
-											label: 'OSs',
-											items: [
-											],
-										},
-									],
-								},
-								{
-									label: 'XML',
-									items: [
-										{
-											label: 'Architecture && Organization',
-											items: [
-											],
-										},
-										{
-											label: 'Hardware',
-											items: [
-											],
-										},
-										{
-											label: 'OSs',
-											items: [
-											],
+											label: "GitHub",
+											items: [],
 										},
 									],
 								},
 							],
 						},
 						{
-							label: 'Backend',
+							label: "Lenguajes",
+							collapsed: true,
 							items: [
 								{
-									label: 'Node.js (Express)',
-									items: [
-										{
-											label: 'Architecture && Organization',
-											items: [
-											],
-										},
-										{
-											label: 'Hardware',
-											items: [
-											],
-										},
-										{
-											label: 'OSs',
-											items: [
-											],
-										},
-									],
+									label: "Python",
+									collapsed: true,
+									items: [],
 								},
 								{
-									label: 'PHP && MYSQL',
-									items: [
-										{
-											label: 'Architecture && Organization',
-											items: [
-											],
-										},
-										{
-											label: 'Hardware',
-											items: [
-											],
-										},
-										{
-											label: 'OSs',
-											items: [
-											],
-										},
-									],
+									label: "C",
+									collapsed: true,
+									items: [],
 								},
 								{
-									label: 'Java (Spring)',
-									items: [
-										{
-											label: 'Architecture && Organization',
-											items: [
-											],
-										},
-										{
-											label: 'Hardware',
-											items: [
-											],
-										},
-										{
-											label: 'OSs',
-											items: [
-											],
-										},
-									],
-								}
+									label: "Java",
+									collapsed: true,
+									items: [],
+								},
 							],
 						},
 					],
 				},
 				{
-					label: 'Privacidad && OPSEC',
+					label: "Privacidad && OPSEC",
 					collapsed: true,
 					items: [
+						{ label: "Overview", link: "/privacy-opsec/overview" },
+						{
+							label: "Privacy",
+							collapsed: true,
+							items: [],
+						},
+						{
+							label: "OPSEC",
+							collapsed: true,
+							items: [],
+						},
 					],
 				},
 				{
-					label: 'Pentesting / Hacking',
+					label: "OSs Pentesting",
 					collapsed: true,
 					items: [
-
+						{ label: "Overview", link: "/os-pentesting/overview" },
+						{
+							label: "Linux Privesc",
+							collapsed: true,
+							items: [],
+						},
+						{
+							label: "Windows Privesc",
+							collapsed: true,
+							items: [],
+						},
+						{
+							label: "Active Directory",
+							collapsed: true,
+							items: [],
+						},
 					],
 				},
 				{
-					label: 'OSINT && Social Engineering',
+					label: "Networking Pentesting",
 					collapsed: true,
 					items: [
+						{ label: "Overview", link: "/net-pentesting/overview" },
 					],
-				},],
-}),
+				},
+				{
+					label: "Web Pentesting",
+					collapsed: true,
+					items: [
+						{ label: "Overview", link: "/web-pentesting/overview" },
+						{
+							label: "Web Vulns",
+							collapsed: true,
+							items: [],
+						},
+						{
+							label: "Networking Pentesting",
+							collapsed: true,
+							items: [],
+						},
+						{
+							label: "Web Tech Pentesting",
+							collapsed: true,
+							items: [],
+						},
+					],
+				},
+				{
+					label: "Wireless Pentesting",
+					collapsed: true,
+					items: [
+						{ label: "Overview", link: "/wireless-pentesting/overview" },
+						{
+							label: "Web Vulns",
+							collapsed: true,
+							items: [],
+						},
+						{
+							label: "Networking Pentesting",
+							collapsed: true,
+							items: [],
+						},
+						{
+							label: "Web Tech Pentesting",
+							collapsed: true,
+							items: [],
+						},
+					],
+				},
+				{
+					label: "Mobile Pentesting",
+					collapsed: true,
+					items: [
+						{ label: "Overview", link: "/mobile-pentesting/overview" },
+					],
+				},
+				{
+					label: "Low Level Pentesting",
+					collapsed: true,
+					items: [
+						{ label: "Overview", link: "/low-level-pentesting/overview" },
+						{
+							label: "Binary Exploitation",
+							collapsed: true,
+							items: [],
+						},
+						{
+							label: "Reverse Engineering",
+							collapsed: true,
+							items: [],
+						},
+						{
+							label: "Malware Dev",
+							collapsed: true,
+							items: [],
+						},
+					],
+				},
+				{
+					label: "Others ( Pentesting )",
+					collapsed: true,
+					items: [
+						{ label: "Overview", link: "/others-pentesting/overview" },
+						{
+							label: "Car Pentesting",
+							collapsed: true,
+							items: [],
+						},
+						{
+							label: "CI/CD Pentesting",
+							collapsed: true,
+							items: [],
+						},
+						{
+							label: "Cloud Pentesting",
+							collapsed: true,
+							items: [],
+						},
+					],
+				},
+				{
+					label: "OSINT && Social Engineering",
+					collapsed: true,
+					items: [
+						{ label: "Overview", link: "/osint-se/overview" },
+					],
+				},
+				{
+					label: "Desarrollo Web",
+					collapsed: true,
+					items: [
+						{ label: "Web-Dev Overview", link: "/web-dev/overview" },
+						{
+							label: "Frontend",
+							collapsed: true,
+							items: [
+								{
+									label: "HTML",
+									collapsed: true,
+									items: [],
+								},
+								{
+									label: "CSS",
+									collapsed: true,
+									items: [
+										{
+											label: "PostCSS",
+											collapsed: true,
+											items: [],
+										},
+										{
+											label: "TailwindCSS",
+											collapsed: true,
+											items: [],
+										},
+									],
+								},
+								{
+									label: "JavaScript",
+									collapsed: true,
+									items: [],
+								},
+								{
+									label: "React",
+									collapsed: true,
+									items: [],
+								},
+							],
+						},
+						{
+							label: "Backend",
+							collapsed: true,
+							items: [
+								{
+									label: "Node.js (Express)",
+									collapsed: true,
+									items: [],
+								},
+								{
+									label: "PHP && MYSQL",
+									collapsed: true,
+									items: [],
+								},
+								{
+									label: "Java (Spring)",
+									collapsed: true,
+									items: [],
+								},
+							],
+						},
+					],
+				},
+			],
+		}),
 	],
 });

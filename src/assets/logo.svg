@@ -1,0 +1,88 @@
+<svg width="307" height="285" viewBox="0 0 307 285" fill="none" xmlns="http://www.w3.org/2000/svg">
+<!-- Forma base del escudo -->
+<path d="M153.5 32L250 70V160C250 210 153.5 252 153.5 252C153.5 252 57 210 57 160V70L153.5 32Z" 
+      fill="#121212" stroke="#bd0249" stroke-width="4"/>
+
+<!-- Circuitos decorativos con gradientes -->
+<path d="M90 140H120V165H190" 
+      stroke="url(#paint0_linear_2_93)" stroke-width="3"/>
+<path d="M90 115H190" 
+      stroke="url(#paint1_linear_2_93)" stroke-width="3"/>
+
+<!-- Símbolo de cerradura con efecto de brillo -->
+<g filter="url(#filter0_d_2_93)">
+    <rect x="128" y="100" width="50" height="65" rx="25" 
+          fill="#3c0017" stroke="#bd0249" stroke-width="2"/>
+    <circle cx="153" cy="130" r="12" 
+            fill="#bd0249"/>
+    <rect x="148" y="130" width="10" height="25" 
+          fill="#bd0249"/>
+</g>
+
+<!-- Nodos de conexión con brillo -->
+<g filter="url(#filter1_d_2_93)">
+    <circle cx="90" cy="115" r="4" fill="#ff78ac"/>
+    <circle cx="90" cy="140" r="4" fill="#ff78ac"/>
+    <circle cx="120" cy="140" r="4" fill="#ff78ac"/>
+    <circle cx="120" cy="165" r="4" fill="#ff78ac"/>
+    <circle cx="190" cy="115" r="4" fill="#ff78ac"/>
+    <circle cx="190" cy="165" r="4" fill="#ff78ac"/>
+</g>
+
+<!-- Líneas decorativas adicionales -->
+<line x1="153.5" y1="32" x2="153.5" y2="252" stroke="url(#paint2_linear_2_93)" stroke-width="0.5"/>
+<line x1="57" y1="160" x2="153.5" y2="252" stroke="url(#paint3_linear_2_93)" stroke-width="0.5"/>
+<line x1="250" y1="160" x2="153.5" y2="252" stroke="url(#paint4_linear_2_93)" stroke-width="0.5"/>
+
+<defs>
+<!-- Filtro de brillo para la cerradura -->
+<filter id="filter0_d_2_93" x="108" y="80" width="90" height="105" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+    <feOffset/>
+    <feGaussianBlur stdDeviation="11.6"/>
+    <feComposite in2="hardAlpha" operator="out"/>
+    <feColorMatrix type="matrix" values="0 0 0 0 0.741176 0 0 0 0 0.00784314 0 0 0 0 0.286275 0 0 0 0.5 0"/>
+    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_2_93"/>
+    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_2_93" result="shape"/>
+</filter>
+
+<!-- Filtro de brillo para los nodos -->
+<filter id="filter1_d_2_93" x="82" y="107" width="120" height="70" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+    <feOffset/>
+    <feGaussianBlur stdDeviation="2"/>
+    <feComposite in2="hardAlpha" operator="out"/>
+    <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 0.47451 0 0 0 0 0.776471 0 0 0 0.5 0"/>
+    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_2_93"/>
+    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_2_93" result="shape"/>
+</filter>
+
+<!-- Gradientes -->
+<linearGradient id="paint0_linear_2_93" x1="90" y1="140" x2="190" y2="165" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#ff78ac" stop-opacity="0.2"/>
+    <stop offset="1" stop-color="#ff78ac"/>
+</linearGradient>
+
+<linearGradient id="paint1_linear_2_93" x1="90" y1="115" x2="190" y2="115" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#ff78ac" stop-opacity="0.2"/>
+    <stop offset="1" stop-color="#ff78ac"/>
+</linearGradient>
+
+<linearGradient id="paint2_linear_2_93" x1="153.5" y1="32" x2="153.5" y2="252" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#3c0017" stop-opacity="0"/>
+    <stop offset="1" stop-color="#ff78ac"/>
+</linearGradient>
+
+<linearGradient id="paint3_linear_2_93" x1="57" y1="160" x2="153.5" y2="252" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#3c0017" stop-opacity="0"/>
+    <stop offset="1" stop-color="#ff78ac"/>
+</linearGradient>
+
+<linearGradient id="paint4_linear_2_93" x1="250" y1="160" x2="153.5" y2="252" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#3c0017" stop-opacity="0"/>
+    <stop offset="1" stop-color="#ff78ac"/>
+</linearGradient>
+</defs>
+</svg>

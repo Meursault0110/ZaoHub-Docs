@@ -1,36 +1,277 @@
 ---
-title: Welcome to Starlight
-description: Get started building your docs site with Starlight.
+title: Home
+description: Documentación de TTK-095 sobre ciberseguridad, redes, sistemas, etc.
 template: splash
 hero:
-  tagline: Congrats on setting up a new Starlight project!
+  tagline: Documentación de TTK-095 sobre <br/> ciberseguridad, redes, sistemas, etc.
   image:
-    file: ../../assets/houston.webp
+    file: ../../assets/logo.svg
   actions:
-    - text: Example Guide
-      link: /guides/example/
+    - text: Start Learning
+      link: /home
       icon: right-arrow
-    - text: Read the Starlight docs
-      link: https://starlight.astro.build
-      icon: external
+    - text: View my GitHub
+      link: https://github.com/Meursault0110
+      icon: github
       variant: minimal
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+:::note
+Esta documentación está en constante evolución. Si encuentras errores o tienes sugerencias, no dudes en contribuir a través de GitHub.
+:::
 
-## Next steps
+import { Card, CardGrid, LinkCard, Tabs, TabItem, Icon, FileTree, Steps } from '@astrojs/starlight/components';
+
+## Áreas Principales
 
 <CardGrid stagger>
-	<Card title="Update content" icon="pencil">
-		Edit `src/content/docs/index.mdx` to see this page change.
+	<Card title="Ciberseguridad" icon="seti:lock">
+		Aprende sobre evaluación de vulnerabilidades, pentesting, forensics y más.
 	</Card>
-	<Card title="Add new content" icon="add-document">
-		Add Markdown or MDX files to `src/content/docs` to create new pages.
+	<Card title="Administración de Sistemas" icon="setting">
+		Guías detalladas sobre Linux, Windows Server, virtualización y contenedores.
 	</Card>
-	<Card title="Configure your site" icon="setting">
-		Edit your `sidebar` and other config in `astro.config.mjs`.
+	<Card title="Redes" icon="seti:xml">
+		Documentación sobre routing, switching, protocolos y seguridad de red.
 	</Card>
-	<Card title="Read the docs" icon="open-book">
-		Learn more in [the Starlight Docs](https://starlight.astro.build/).
+	<Card title="Privacidad && Ingeniería Social" icon="rocket">
+		Documentación y guías sobre el anonimato en línea, como protegerse del robo de datos y el arte de "Hacking Humans".
 	</Card>
 </CardGrid>
+
+## Rutas de Aprendizaje
+
+<Tabs>
+    <TabItem label="SysAdmin (ASIR)">
+    <Steps>
+      1. **1º Curso**
+         - Implementación de Sistemas Operativos
+         - Fundamentos de Hardware
+         - Gestión de Bases de Datos
+		     - Planificación y Administración de Redes
+		     - Lenguaje de Marcas
+    </Steps>
+  </TabItem>
+
+  <TabItem label="IT Fundamentals">
+    <Steps>
+      1. **IT Essentials**
+         - Computer Organization && Architecture
+         - Hardware
+         - Operating Systems
+      
+      2. **Networking (CCNA)**
+         - Network Fundamentals
+         - Network Access
+         - IP Connectivity
+		 - IP Services
+         - Security Fundamentals
+         - Automation and Programmability
+      
+      3. **IT Security (CISSP)**
+         - Security and Risk Management
+         - Asset Security
+         - Security Architecture and Engineering
+		 - Communication and Network Security
+         - Identity and Access Management (IAM)
+         - Security Assessment and Testing
+		 - Security Operations
+         - Software Development Security
+    </Steps>
+  </TabItem>
+
+    <TabItem label="Programming">
+    <Steps>
+      1. **Programming Fundamentals**
+         - Data Structures
+         - Algorithms
+         - Git && GitHub
+      
+      2. **Programming Languages**
+         - Python
+         - C
+         - Java
+      
+    </Steps>
+  </TabItem>
+
+      <TabItem label="Privacy && OPSEC">
+    <Steps>
+      1. **Coming soon...**
+      
+    </Steps>
+  </TabItem>
+
+    <TabItem label="Cybersecurity">
+	**General Pentesting**
+    <Steps>
+      1. **OS Pentesting**
+		 - Linux Privilege Escalation (Privesc)
+		 - Windows Privilege Escalation (Privesc)
+         - Active Directory
+      
+      2. **Network Pentesting**
+         - Service/Port Pentesting (22/ssh | 80/http)
+      
+      3. **Web Pentesting**
+         - Web Vulnerabilities (Enumeration && Exploitation)
+         - API Pentesting
+         - Web Tech Pentesting
+
+	  4. **Wireless Pentesting**
+         - Wifi Pentesting
+         - Bluetooth Pentesting
+         - SDR Pentesting
+      
+      5. **Mobile Pentesting**
+         - Coming soon...
+      
+      6. **Low Level Pentesting**
+         - Binary Exploitation
+         - Reverse Engineering
+         - Malware Dev
+
+	  7. **Others**
+         - Car Pentesting
+         - CI/CD Pentesting
+         - Cloud Pentesting
+    </Steps>
+  </TabItem>
+
+    <TabItem label="OSINT && SE">
+    <Steps>
+      1. **OSINT**
+
+      
+      2. **Social Engineer**
+
+    </Steps>
+  </TabItem>
+  
+  <TabItem label="Web-Dev">
+    <Steps>
+      1. **Frontend**
+         - HTML (Emmet) && CSS (PostCSS && Tailwind)
+         - JavaScript (React)
+         - Astro
+      
+      2. **Backend**
+         - PHP && MYSQL
+         - Node.js && Express
+         - Java && Spring
+    </Steps>
+  </TabItem>
+</Tabs>
+
+## Estructura del Repositorio
+
+<FileTree>
+- docs/
+  - asir-notes/
+    - iso/
+    - fhw/
+    - gdb/
+    - redes/
+    - lms/
+  - it-fundamentals/
+    - it-essentials/
+	  - computer-arch/
+	  - hardware/
+	  - os/
+    - networking/
+	  - net-fundamentals/
+	  - net-access/
+	  - ip-connectivity/
+	  - ip-services/
+	  - security-fundamentals/
+	  - automation-programmability/
+    - it-security/
+	  - sec-risk-management/
+	  - asset-sec/
+	  - sec-arch-eng/
+	  - communication-net-sec/
+	  - iam/
+	  - sec-assessment-testing/
+	  - opsec/
+	  - software-dev-sec/
+  - programming/
+    - programming-fundamentals/
+	  - data-structures/
+	  - algorithms/
+	  - git-github/
+    - programming-languages/
+	  - python/
+	  - c/
+	  - java/
+  - privacy-opsec/
+    - privacy/
+    - opsec/
+
+  - os-pentesting/
+	  - linux-privesc/
+      - windows-privesc/
+      - ad/
+  - net-pentesting/
+  - web-pentesting/
+	  - web-vulns/
+	  - api-pentesting/
+	  - web-tech-pentesting/
+  - wireless-pentesting/
+	  - wifi-pentesting/
+	  - bluetooth-pentesting/
+	  - sdr-pentesting/
+  - mobile-pentesting/
+  - low-level-pentesting/
+	  - binary-exploitation/
+	  - rev-eng/
+	  - mal-dev/
+  - others-pentesting/
+	  - car-pentesting/
+	  - ci-cd-pentesting/
+	  - cloud-pentesting/
+  - osint-se/
+    - osint/
+    - [social-engineer/](/guides/basics/)
+  - web-dev/
+    - frontend/
+      - hmtl/
+      - css/
+      - js/
+      - react/
+      - astro/
+    - backend/
+      - node-express/
+      - php-ms/
+      - java-spring/
+
+
+</FileTree>
+
+## Recursos Destacados
+
+<CardGrid stagger>
+	<Card title="Cheatsheets" icon="document">
+	Revisa los Cheatsheets para acceder a la información de manera rápida y sencilla.
+
+		[Acceso a todos mis Cheatsheets →](/guides/basics/)
+	</Card>
+	<Card title="Labs && VMs" icon="setting">
+		Laboratorios y Maquinas virtuales para practicar y aprender habilidades
+
+    [Practica con Laboratorios y VMs →](/guides/basics/)
+	</Card>
+	<Card title="My Projects" icon="open-book">
+		Mira todos mis projectos publicados en GitHub
+
+    [Mira todos mis proyectos →](/guides/basics/)
+	</Card>
+	<Card title="Main Web" icon="rocket">
+		Página principal donde encontraras muchos más recursos.
+
+    [Entra a la página principal →](/guides/basics/)
+	</Card>
+</CardGrid>
+
+:::note
+Esta documentación está en constante evolución. Si encuentras errores o tienes sugerencias, no dudes en contribuir a través de GitHub.
+:::

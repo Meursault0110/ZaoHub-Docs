@@ -5,7 +5,7 @@ import starlight from "@astrojs/starlight";
 export default defineConfig({
 	integrations: [
 		starlight({
-			title: "🐱‍👤 ZaoDocs",
+			title: "ZaoDocs",
 			customCss: [
 				// Relative path to your custom CSS file
 				"./src/styles/custom.css",
@@ -19,7 +19,6 @@ export default defineConfig({
 					label: "ASIR Notes",
 					collapsed: true,
 					items: [
-						{ label: "Overview", link: "/asir-notes/overview" },
 						{
 							label: "ISO",
 							collapsed: true,
@@ -53,122 +52,77 @@ export default defineConfig({
 					],
 				},
 				{
-					label: "IT Fundamentals",
+					label: "🎯 IT Fundamentals",
 					collapsed: true,
 					items: [
-						{ label: "Overview", link: "/it-fundamentals/overview" },
 						{
-							label: "Computer Fundamentals",
+							label: "🖥 Computer Fundamentals",
 							collapsed: true,
 							items: [
 								{
-									label: "Architecture && Organization",
+									label: "🧱 Architecture",
 									collapsed: true,
 									items: [],
 								},
 								{
-									label: "Hardware",
+									label: "🔌 Hardware",
 									collapsed: true,
 									items: [],
 								},
 								{
-									label: "Operating Systems",
+									label: "🕹 Operating Systems",
 									collapsed: true,
-									items: [],
+									items: [
+										{
+											label: "🐧 Linux",
+											collapsed: true,
+											items: [
+												{
+													label: "⚙ System",
+													collapsed: true,
+													items: [],
+												},
+												{
+													label: "🈺 Scripting",
+													collapsed: true,
+													items: [],
+												},
+											],
+										},
+										{
+											label: "🖼 Windows",
+											collapsed: true,
+											items: [
+												{
+													label: "⚙ System",
+													collapsed: true,
+													items: [],
+												},
+												{
+													label: "#️⃣ Scripting",
+													collapsed: true,
+													items: [],
+												},
+											],
+										},
+									],
 								},
 							],
 						},
 						{
-							label: "Networking (CCNA)",
-							collapsed: true,
-							items: [
-								{
-									label: "Network Fundamentals",
-									collapsed: true,
-									items: [],
-								},
-								{
-									label: "Network Access",
-									collapsed: true,
-									items: [],
-								},
-								{
-									label: "IP Connectivity",
-									collapsed: true,
-									items: [],
-								},
-								{
-									label: "IP Services",
-									collapsed: true,
-									items: [],
-								},
-								{
-									label: "Security Fundamentals",
-									collapsed: true,
-									items: [],
-								},
-								{
-									label: "Automation & Progammability",
-									collapsed: true,
-									items: [],
-								},
-							],
+							label: "🌐 Networking (CCNA 200-301)", link: "#"
 						},
 						{
-							label: "IT Security (CISSP)",
-							collapsed: true,
-							items: [
-								{
-									label: "Security and Risk Management",
-									collapsed: true,
-									items: [],
-								},
-								{
-									label: "Asset Security",
-									collapsed: true,
-									items: [],
-								},
-								{
-									label: "Security Architecture and Engineering",
-									collapsed: true,
-									items: [],
-								},
-								{
-									label: "Communication and Network Security",
-									collapsed: true,
-									items: [],
-								},
-								{
-									label: "Identity and Access Management (IAM)",
-									collapsed: true,
-									items: [],
-								},
-								{
-									label: "Security Assessment and Testing",
-									collapsed: true,
-									items: [],
-								},
-								{
-									label: "Security Operations",
-									collapsed: true,
-									items: [],
-								},
-								{
-									label: "Software Development Security",
-									collapsed: true,
-									items: [],
-								},
-							],
+							label: "🛡 IT Sec (CompTIA Sec+-701)", link: "#"
 						},
 					],
 				},
 				{
-					label: "Programación",
+					label: "⛩ Programación",
 					collapsed: true,
 					items: [
-						{ label: "Overview", link: "/programming/overview" },
 						{
-							label: "Fundamentos",
+							label: "🎯 Fundamentos",
 							collapsed: true,
 							items: [
 								{
@@ -198,7 +152,7 @@ export default defineConfig({
 							],
 						},
 						{
-							label: "Lenguajes",
+							label: "🎲 Lenguajes",
 							collapsed: true,
 							items: [
 								{
@@ -212,6 +166,11 @@ export default defineConfig({
 									items: [],
 								},
 								{
+									label: "Golang",
+									collapsed: true,
+									items: [],
+								},
+								{
 									label: "Java",
 									collapsed: true,
 									items: [],
@@ -221,10 +180,9 @@ export default defineConfig({
 					],
 				},
 				{
-					label: "Privacidad && OPSEC",
+					label: "🔐 Privacidad && OPSEC",
 					collapsed: true,
 					items: [
-						{ label: "Overview", link: "/privacy-opsec/overview" },
 						{
 							label: "Privacy",
 							collapsed: true,
@@ -238,10 +196,9 @@ export default defineConfig({
 					],
 				},
 				{
-					label: "OSs Pentesting",
+					label: "⚙ OSs Pentesting",
 					collapsed: true,
 					items: [
-						{ label: "Overview", link: "/os-pentesting/overview" },
 						{
 							label: "Linux Privesc",
 							collapsed: true,
@@ -260,17 +217,15 @@ export default defineConfig({
 					],
 				},
 				{
-					label: "Networking Pentesting",
+					label: "👽 Networking Pentesting",
 					collapsed: true,
 					items: [
-						{ label: "Overview", link: "/net-pentesting/overview" },
 					],
 				},
 				{
-					label: "Web Pentesting",
+					label: "🕸 Web Pentesting",
 					collapsed: true,
 					items: [
-						{ label: "Overview", link: "/web-pentesting/overview" },
 						{
 							label: "Web Vulns",
 							collapsed: true,
@@ -289,10 +244,9 @@ export default defineConfig({
 					],
 				},
 				{
-					label: "Wireless Pentesting",
+					label: "📻 Wireless Pentesting",
 					collapsed: true,
 					items: [
-						{ label: "Overview", link: "/wireless-pentesting/overview" },
 						{
 							label: "Web Vulns",
 							collapsed: true,
@@ -311,17 +265,15 @@ export default defineConfig({
 					],
 				},
 				{
-					label: "Mobile Pentesting",
+					label: "📱 Mobile Pentesting",
 					collapsed: true,
 					items: [
-						{ label: "Overview", link: "/mobile-pentesting/overview" },
 					],
 				},
 				{
-					label: "Low Level Pentesting",
+					label: "🎱 Low Level Pentesting",
 					collapsed: true,
 					items: [
-						{ label: "Overview", link: "/low-level-pentesting/overview" },
 						{
 							label: "Binary Exploitation",
 							collapsed: true,
@@ -340,10 +292,9 @@ export default defineConfig({
 					],
 				},
 				{
-					label: "Others ( Pentesting )",
+					label: "🧩 Others ( Pentesting )",
 					collapsed: true,
 					items: [
-						{ label: "Overview", link: "/others-pentesting/overview" },
 						{
 							label: "Car Pentesting",
 							collapsed: true,
@@ -362,17 +313,21 @@ export default defineConfig({
 					],
 				},
 				{
-					label: "OSINT && Social Engineering",
+					label: "👥 OSINT",
 					collapsed: true,
 					items: [
-						{ label: "Overview", link: "/osint-se/overview" },
 					],
 				},
 				{
-					label: "Desarrollo Web",
+					label: "🎭 Social Engineering",
 					collapsed: true,
 					items: [
-						{ label: "Web-Dev Overview", link: "/web-dev/overview" },
+					],
+				},
+				{
+					label: "🎇 Desarrollo Web",
+					collapsed: true,
+					items: [
 						{
 							label: "Frontend",
 							collapsed: true,

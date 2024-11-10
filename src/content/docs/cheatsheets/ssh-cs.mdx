@@ -1,0 +1,218 @@
+---
+title: SSH (Secure Shell) Cheatsheet
+description: A comprehensive guide to SSH commands and common functionalities
+template: doc
+---
+
+import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+
+## Table of Contents
+
+1. [Basic SSH Commands](#basic-ssh-commands)
+2. [Common Options](#common-options)
+3. [File Transfer](#file-transfer)
+4. [Remote Commands](#remote-commands)
+5. [SSH Keys](#ssh-keys)
+6. [Port Forwarding](#port-forwarding)
+7. [Configuration Tips](#configuration-tips)
+
+## Basic SSH Commands
+
+<Tabs>
+  <TabItem label="Basic Connection">
+    ```bash
+    # Basic connection
+    ssh username@hostname
+    
+    # Connect to specific port
+    ssh -p 2222 username@hostname
+    
+    # Connect with specific identity file
+    ssh -i ~/.ssh/key.pem username@hostname
+    
+    # Connect with custom configuration
+    ssh myserver    # Using configuration from ~/.ssh/config
+    ```
+  </TabItem>
+
+  <TabItem label="Exit and Escape">
+    ```bash
+    # Exit SSH session
+    exit
+    logout
+    Ctrl + D
+    
+    # SSH escape sequences
+    ~.    # Terminate session
+    ~^Z   # Suspend SSH session
+    ~#    # List forwarded connections
+    ~?    # List all escape sequences
+    ```
+  </TabItem>
+</Tabs>
+
+## Common Options
+
+```bash
+# Verbosity levels
+ssh -v username@hostname     # Verbose mode
+ssh -vv username@hostname    # More verbose
+ssh -vvv username@hostname   # Debug level
+
+# Connection options
+ssh -4 username@hostname     # Force IPv4
+ssh -6 username@hostname     # Force IPv6
+ssh -q username@hostname     # Quiet mode
+ssh -T username@hostname     # Disable pseudo-terminal allocation
+
+# Authentication options
+ssh -o PubkeyAuthentication=no username@hostname    # Disable public key auth
+ssh -o PreferredAuthentications=password username@hostname  # Force password auth
+```
+
+## File Transfer
+
+<Steps>
+1. **Local to Remote**
+   ```bash
+   # Copy file
+   scp file.txt username@hostname:/remote/directory
+   
+   # Copy directory
+   scp -r directory username@hostname:/remote/directory
+   
+   # Copy with specific port
+   scp -P 2222 file.txt username@hostname:/remote/directory
+   ```
+
+2. **Remote to Local**
+   ```bash
+   # Copy file
+   scp username@hostname:/remote/file.txt /local/directory
+   
+   # Copy directory
+   scp -r username@hostname:/remote/directory /local/directory
+   ```
+
+3. **Between Remote Hosts**
+   ```bash
+   scp user1@host1:/file user2@host2:/directory
+   ```
+</Steps>
+
+## Remote Commands
+
+<Tabs>
+  <TabItem label="Execute Commands">
+    ```bash
+    # Single command
+    ssh username@hostname 'ls -la'
+    
+    # Multiple commands
+    ssh username@hostname 'cd /var/log && tail -f syslog'
+    
+    # Interactive shell command
+    ssh -t username@hostname 'top'
+    
+    # Command with sudo
+    ssh -t username@hostname 'sudo service nginx restart'
+    ```
+  </TabItem>
+
+  <TabItem label="Shell Scripts">
+    ```bash
+    # Execute local script on remote host
+    ssh username@hostname 'bash -s' < local_script.sh
+    
+    # Execute script with arguments
+    ssh username@hostname 'bash -s' < script.sh arg1 arg2
+    ```
+  </TabItem>
+</Tabs>
+
+## SSH Keys
+
+```bash
+# Generate new key pair
+ssh-keygen -t ed25519 -C "your_email@example.com"
+
+# Copy public key to server
+ssh-copy-id username@hostname
+ssh-copy-id -i ~/.ssh/custom_key.pub username@hostname
+
+# Add key to SSH agent
+eval $(ssh-agent -s)
+ssh-add ~/.ssh/id_ed25519
+
+# List keys in SSH agent
+ssh-add -l
+```
+
+## Port Forwarding
+
+```bash
+# Local port forwarding (access remote service locally)
+ssh -L 8080:localhost:80 username@hostname
+
+# Remote port forwarding (expose local service remotely)
+ssh -R 8080:localhost:3000 username@hostname
+
+# Dynamic port forwarding (SOCKS proxy)
+ssh -D 1080 username@hostname
+
+# Multiple port forwards
+ssh -L 8080:localhost:80 -L 3000:localhost:3000 username@hostname
+```
+
+## Configuration Tips
+
+<Tabs>
+  <TabItem label="SSH Config File">
+    ```bash
+    # ~/.ssh/config
+    Host myserver
+        HostName server.example.com
+        User username
+        Port 2222
+        IdentityFile ~/.ssh/custom_key
+        
+    # Wildcard matching
+    Host *.production
+        User prod-user
+        IdentityFile ~/.ssh/prod_key
+    ```
+  </TabItem>
+
+  <TabItem label="Common Options">
+    ```bash
+    # Keep connection alive
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+    
+    # Compression for slow connections
+    Compression yes
+    
+    # Share multiple sessions
+    ControlMaster auto
+    ControlPath ~/.ssh/control/%r@%h:%p
+    ControlPersist 10m
+    ```
+  </TabItem>
+</Tabs>
+
+## Common Use Cases
+
+```bash
+# X11 Forwarding
+ssh -X username@hostname        # Enable X11 forwarding
+ssh -Y username@hostname        # Enable trusted X11 forwarding
+
+# Keep session alive
+ssh -o ServerAliveInterval=60 username@hostname
+
+# Bypass known_hosts check (not recommended for production)
+ssh -o StrictHostKeyChecking=no username@hostname
+
+# Connect through a jump host
+ssh -J jumpuser@jumphost username@destination
+```

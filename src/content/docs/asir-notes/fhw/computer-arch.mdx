@@ -1,0 +1,142 @@
+---
+title: Computer Architecture
+description: Complete guide about computer architecture, from its history to modern implementations
+---
+import { Card, CardGrid, Tabs, TabItem, Icon, Steps } from '@astrojs/starlight/components';
+
+<CardGrid stagger>
+  <Card title="Historical Evolution" icon="pencil">
+    Learn about the evolution of computers from early calculating machines to modern processors.
+  </Card>
+  <Card title="Core Components" icon="setting">
+    Understand CPU, memory, buses, and I/O units that make up computer systems.
+  </Card>
+  <Card title="Memory Hierarchy" icon="random">
+    Explore different types of memory and their roles in computer systems.
+  </Card>
+  <Card title="Architecture Types" icon="open-book">
+    Compare von Neumann and Harvard architectures and their applications.
+  </Card>
+</CardGrid>
+
+## 1. Historical Introduction
+
+### Early Computing Devices
+- The abacus (circa 2000 BC) from ancient Mesopotamia
+- The quipu system based on knots and strings
+- 17th century mechanical calculators:
+  - Pascal's Calculator (1642)
+  - Leibniz Wheel (1672)
+
+### Evolution of Calculating Machines
+- Arithmometer (1820)
+- Curta Calculator (1948)
+- Spanish Minerva Calculator (1945)
+
+:::note[Historical Note]
+The transition from mechanical to electronic computing marked a revolutionary change in computational capabilities.
+:::
+
+## 2. Computer Generations
+
+<Steps>
+1. **First Generation (1945-1955)**
+   - Based on vacuum tubes
+   - ENIAC and EDVAC computers
+   - von Neumann architecture introduction
+
+2. **Second Generation (1955-1965)**
+   - Transistor-based computers
+   - IBM 650 and 702 models
+   - Room-sized computers weighing about 1 ton
+
+3. **Third Generation (1965-1975)**
+   - Integrated circuits
+   - IBM S/360 and S/370
+   - First storage devices (tapes and early hard drives)
+
+4. **Fourth Generation (1975-1985)**
+   - Microchips with thousands of transistors
+   - Personal computers emerge
+   - Apple I, II, and early IBM PCs
+
+5. **Fifth Generation (1985-Present)**
+   - Advanced microprocessors
+   - Multi-core processing
+   - Miniaturization and standardization
+</Steps>
+
+## 3. Von Neumann Architecture
+
+The von Neumann architecture consists of these main components:
+
+<CardGrid>
+  <Card title="CPU" icon="setting">
+    - Control Unit (CU)
+    - Arithmetic Logic Unit (ALU)
+    - Registers
+  </Card>
+  <Card title="Memory" icon="document">
+    - Main memory for instructions and data
+    - Memory addressing system
+  </Card>
+  <Card title="I/O" icon="forward-slash">
+    - Input/Output units
+    - Peripheral management
+  </Card>
+  <Card title="Buses" icon="random">
+    - Data bus
+    - Address bus
+    - Control bus
+  </Card>
+</CardGrid>
+
+:::caution[Von Neumann Bottleneck]
+The main disadvantage of this architecture is the "von Neumann bottleneck" - the shared bus for instructions and data.
+:::
+
+## 4. Harvard Architecture
+
+The Harvard Architecture differs by having:
+- Separate memories for instructions and data
+- Different buses for each memory type
+- Capability for simultaneous instruction and data access
+
+:::tip[Modern Application]
+Harvard architecture is commonly used in microcontrollers and DSP chips.
+:::
+
+## 5. Memory Hierarchy
+
+<CardGrid>
+  <Card title="CPU Registers">
+    - Fastest access (1-2ns)
+    - Very small capacity (1-32 bytes)
+  </Card>
+  <Card title="Cache Memory">
+    - L1, L2, L3 Cache
+    - Access time: 5-50ns
+    - Capacity: KB to MB range
+  </Card>
+  <Card title="Main Memory">
+    - RAM
+    - Access time: 25-100ns
+    - Capacity: GB range
+  </Card>
+  <Card title="Secondary Storage">
+    - HDDs and SSDs
+    - Access time: 5-20ms
+    - Capacity: TB range
+  </Card>
+</CardGrid>
+
+## Additional Resources
+
+<CardGrid>
+  <Card title="Learn More" icon="open-book">
+    Check our detailed guides on specific computer architecture topics.
+  </Card>
+  <Card title="Practice" icon="pencil">
+    Try our interactive simulations and exercises.
+  </Card>
+</CardGrid>

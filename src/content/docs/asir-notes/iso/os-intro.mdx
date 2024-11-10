@@ -1,0 +1,201 @@
+---
+title: Introduction to Operating Systems
+description: Fundamental concepts and evolution of Operating Systems
+---
+
+import { Card, CardGrid, Tabs, TabItem, Icon, Steps } from '@astrojs/starlight/components';
+
+# Index
+
+<CardGrid stagger>
+	<Card title="Basic Concepts" icon="document">
+		Essential fundamentals of computing and operating systems.
+	</Card>
+	<Card title="Management & Functions" icon="setting">
+		Main functions and system resource management.
+	</Card>
+	<Card title="Historical Evolution" icon="open-book">
+		History and development of operating systems.
+	</Card>
+	<Card title="Types & Classification" icon="list-format">
+		Different types and categories of operating systems.
+	</Card>
+</CardGrid>
+
+## Fundamental Concepts
+
+<Tabs>
+	<TabItem label="Basic Definitions">
+		- **Computer Science**: Set of scientific knowledge and techniques that enable automatic information processing through computers.
+		
+		- **Computer**: Electronic machine that, through specific programs, allows storing and processing information, and solving various problems.
+		
+		- **Computer System**: Set of elements that enable capturing, storing, and processing data, composed of:
+			- Hardware (physical component)
+			- Software (logical component)
+			- Human component
+	</TabItem>
+	<TabItem label="Components">
+		### Hardware (HW)
+		- Physical/tangible part of the computer
+		- Electronic components
+
+		### Software (SW)
+		- **Base Software**: Operating system programs
+		- **User Software**: Programs for specific needs
+
+		### Operating System (OS)
+		Set of programs that manage hardware resources and offer them to users and user software.
+	</TabItem>
+</Tabs>
+
+## Operating System Objectives
+
+:::tip[Main Objectives]
+Operating systems have two fundamental objectives:
+1. **Abstraction**: Hide hardware complexity
+2. **Security**: Protect system integrity and data
+:::
+
+### Access Modes
+
+<CardGrid>
+	<Card title="Protected Mode" icon="lock">
+		Higher privilege level for OS programs
+	</Card>
+	<Card title="User Mode" icon="person">
+		Restricted access for user programs
+	</Card>
+</CardGrid>
+
+## Main Functions
+
+<Steps>
+1. **Process Management**
+   - Hardware resource allocation
+   - Concurrency control
+   - Running program management
+
+2. **Memory Management (RAM)**
+   - Process distribution in memory
+   - Address allocation
+   - Free memory control
+
+3. **File System Management**
+   - File and folder storage
+   - Indexing and structure
+   - Disk space management
+
+4. **I/O Management**
+   - External device communication
+   - Driver management
+   - Communication protocols
+
+5. **Security Management**
+   - Access control
+   - User hierarchies
+   - Resource protection
+</Steps>
+
+## Historical Evolution
+
+<Tabs>
+	<TabItem label="First Generation (1945-1955)">
+		- First computers in academic settings
+		- No operating system
+		- Direct hardware manipulation
+	</TabItem>
+	<TabItem label="Second Generation (1955-1965)">
+		- Military and banking use
+		- Resident monitor
+		- Assembly programming
+	</TabItem>
+	<TabItem label="Third Generation (1965-1975)">
+		- First digital storage media
+		- UNIX and Multics emergence
+		- High-level languages
+	</TabItem>
+	<TabItem label="Fourth Generation (1975-1985)">
+		- Home computing
+		- Graphical interfaces (GUI)
+		- Communication networks
+	</TabItem>
+	<TabItem label="Fifth Generation (1985-Today)">
+		- High processing power
+		- Advanced interfaces
+		- Multimedia and 3D
+		- Artificial Intelligence
+	</TabItem>
+</Tabs>
+
+## Types of Operating Systems
+
+### By Structure
+
+<CardGrid stagger>
+	<Card title="Monolithic" icon="random">
+		- Organized in single level
+		- High performance
+		- Difficult maintenance
+	</Card>
+	<Card title="Hierarchical" icon="seti:plan">
+		- Organized by levels
+		- Better error control
+		- Lower performance
+	</Card>
+	<Card title="Hybrid" icon="puzzle">
+		- Combined structures
+		- Balance between performance and maintenance
+	</Card>
+</CardGrid>
+
+### By Capabilities
+
+:::note[Classification]
+Classified by:
+- Number of users (single-user/multi-user)
+- Number of tasks (single-task/multi-task)
+- Number of processors (single-process/multi-process)
+:::
+
+### By Function
+
+<CardGrid>
+	<Card title="Desktop OS" icon="seti:folder">
+		For conventional users
+	</Card>
+	<Card title="Network OS" icon="seti:xml">
+		For communication infrastructures
+	</Card>
+	<Card title="Distributed OS" icon="cloudflare">
+		For large networked systems
+	</Card>
+	<Card title="Real-Time OS" icon="seti:clock">
+		For immediate response
+	</Card>
+</CardGrid>
+
+## Licenses and Costs
+
+<Tabs>
+	<TabItem label="License Types">
+		### Proprietary
+		- OEM
+		- Retail
+		- VLK (Volume)
+
+		### Free
+		- GPL
+		- Apache
+		- BSD
+		- Creative Commons
+	</TabItem>
+	<TabItem label="By Cost">
+		- **Free**: No acquisition cost
+		- **Commercial**: With acquisition cost
+	</TabItem>
+</Tabs>
+
+:::tip[Important]
+The type of license is not necessarily related to the software cost.
+:::

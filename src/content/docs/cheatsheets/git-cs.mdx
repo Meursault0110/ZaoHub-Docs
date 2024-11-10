@@ -1,0 +1,168 @@
+---
+title: Git Cheatsheet
+description: A comprehensive guide to Git commands and best practices
+template: doc
+---
+
+import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+
+# Git Cheatsheet
+
+## Table of Contents
+
+- [Basic Commands](#basic-commands)
+- [Branch Management](#branch-management)
+- [Remote Operations](#remote-operations)
+- [Undoing Changes](#undoing-changes)
+- [Git Configuration](#git-configuration)
+- [Advanced Operations](#advanced-operations)
+
+## Basic Commands
+
+<Steps>
+1. **Repository Setup**
+   ```bash
+   git init                    # Initialize a new repository
+   git clone <url>            # Clone a repository
+   git status                 # Check repository status
+   ```
+
+2. **Staging Changes**
+   ```bash
+   git add <file>             # Add file to staging area
+   git add .                  # Add all changes to staging area
+   git add -p                 # Interactive staging
+   ```
+
+3. **Committing**
+   ```bash
+   git commit -m "message"    # Commit with message
+   git commit -am "message"   # Add and commit in one command
+   git commit --amend        # Modify the last commit
+   ```
+</Steps>
+
+![Git-Cheatsheet](/src/assets/git-cs.png)
+
+## Branch Management
+
+<Tabs>
+  <TabItem label="Creating & Switching">
+    ```bash
+    git branch                # List branches
+    git branch <name>         # Create new branch
+    git checkout <branch>     # Switch to branch
+    git checkout -b <branch>  # Create and switch to new branch
+    git switch <branch>       # Switch to branch (new syntax)
+    git switch -c <branch>    # Create and switch to new branch (new syntax)
+    ```
+  </TabItem>
+
+  <TabItem label="Merging">
+    ```bash
+    git merge <branch>        # Merge branch into current branch
+    git rebase <branch>       # Rebase current branch onto another
+    git merge --abort         # Abort merge in case of conflicts
+    git rebase --abort        # Abort rebase
+    ```
+  </TabItem>
+</Tabs>
+
+## Remote Operations
+
+```bash
+git remote add origin <url>   # Add remote repository
+git remote -v                # List remote repositories
+git push origin <branch>     # Push changes to remote
+git pull origin <branch>     # Pull changes from remote
+git fetch origin            # Fetch changes without merging
+```
+
+## Undoing Changes
+
+<Steps>
+1. **Working Directory**
+   ```bash
+   git checkout -- <file>     # Discard changes in working directory
+   git clean -fd             # Remove untracked files and directories
+   ```
+
+2. **Staged Changes**
+   ```bash
+   git reset <file>          # Unstage changes
+   git reset                 # Unstage all changes
+   ```
+
+3. **Commits**
+   ```bash
+   git reset --soft HEAD~1   # Undo last commit, keep changes staged
+   git reset --hard HEAD~1   # Undo last commit and discard changes
+   git revert <commit>       # Create new commit that undoes changes
+   ```
+</Steps>
+
+## Git Configuration
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "your@email.com"
+git config --global core.editor "code --wait"  # Set VS Code as default editor
+git config --list           # List all configurations
+```
+
+## Advanced Operations
+
+<Tabs>
+  <TabItem label="Stashing">
+    ```bash
+    git stash                # Stash changes
+    git stash list          # List stashes
+    git stash pop           # Apply and remove latest stash
+    git stash apply         # Apply latest stash without removing it
+    ```
+  </TabItem>
+
+  <TabItem label="History">
+    ```bash
+    git log                  # View commit history
+    git log --oneline       # Compact commit history
+    git blame <file>        # Show who changed what in a file
+    git reflog              # View reference logs
+    ```
+  </TabItem>
+
+  <TabItem label="Tags">
+    ```bash
+    git tag                  # List tags
+    git tag -a v1.0 -m "Version 1.0"  # Create annotated tag
+    git push origin --tags   # Push tags to remote
+    ```
+  </TabItem>
+</Tabs>
+
+## Best Practices
+
+- Write clear, descriptive commit messages
+- Commit early and often
+- Keep branches focused and short-lived
+- Pull before pushing to avoid conflicts
+- Use `.gitignore` for files that shouldn't be tracked
+- Regularly fetch and merge from upstream
+- Use meaningful branch names
+
+## Common Workflows
+
+<Steps>
+1. **Feature Branch Workflow**
+   - Create feature branch
+   - Make changes and commit
+   - Pull latest main/develop
+   - Merge or rebase
+   - Push and create pull request
+
+2. **Hotfix Workflow**
+   - Branch from production/main
+   - Fix issue and commit
+   - Merge to both main and develop
+   - Tag release if necessary
+</Steps>

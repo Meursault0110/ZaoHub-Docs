@@ -49,7 +49,7 @@ export default defineConfig({
 						{label: "🔶 Git", link: "cheatsheets/git-cs"},
 						{label: "🔐 ssh", link: "cheatsheets/ssh-cs"},
 						{label: "🐳 Docker", link: "cheatsheets/docker-cs"},
-						{label: "🦈 Wireshark/Tshark", link: "cheatsheets/tshark-cs"},
+						{label: "🦈 Tshark", link: "cheatsheets/tshark-cs"},
 						{
 							label: "CMS Tools",
 							collapsed: true,

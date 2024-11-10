@@ -1,0 +1,287 @@
+---
+title: Wfuzz Command Cheatsheet
+description: Advanced techniques and practical examples for web application fuzzing with Wfuzz
+template: doc
+---
+
+import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+
+## About Wfuzz
+
+Wfuzz is a powerful web application fuzzer that replaces any reference to the FUZZ keyword in URLs, headers, cookies, or other HTTP request elements with values from a specified payload. This makes it an essential tool for web application security assessments.
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Basic Concepts](#basic-concepts)
+- [Filtering Options](#filtering-options)
+- [Authentication Methods](#authentication-methods)
+- [Payload Types](#payload-types)
+- [Common Attack Scenarios](#common-attack-scenarios)
+- [Advanced Features](#advanced-features)
+- [Output Management](#output-management)
+- [Performance Tips](#performance-tips)
+
+## Installation
+
+<Tabs>
+  <TabItem label="Package Manager">
+    ```bash
+    # Using pip
+    pip install wfuzz
+
+    # On Kali Linux
+    # Pre-installed, but can be updated via apt
+    sudo apt update && sudo apt install wfuzz
+    ```
+  </TabItem>
+
+  <TabItem label="From Source">
+    ```bash
+    # Clone repository
+    git clone https://github.com/xmendez/wfuzz
+    cd wfuzz
+
+    # Install
+    python setup.py install
+    ```
+  </TabItem>
+</Tabs>
+
+## Basic Concepts
+
+The fundamental concept of Wfuzz is replacing the FUZZ keyword with payloads:
+
+```bash
+# Basic syntax
+wfuzz -z payload,wordlist URL/FUZZ
+
+# Multiple FUZZ keywords
+wfuzz -z payload,list1 -z payload,list2 URL/FUZZ/FUZ2Z
+```
+
+## Filtering Options
+
+<Tabs>
+  <TabItem label="Response Filters">
+    ```bash
+    # Hide/Show by string or regex
+    --hs/ss "regex"    # Hide/Show responses with match
+    --hc/sc CODE       # Hide/Show by response code
+    --hl/sl NUM        # Hide/Show by line count
+    --hw/sw NUM        # Hide/Show by word count
+    --hh/sh NUM        # Hide/Show by char count
+
+    # Examples
+    --hs "Invalid username"   # Hide responses containing text
+    --hs "Invalid *"         # Hide responses matching regex
+    --hc 404,503            # Hide specific response codes
+    ```
+  </TabItem>
+
+  <TabItem label="Complex Filtering">
+    ```bash
+    # Combining filters
+    wfuzz -c -w wordlist.txt \
+      --hc 404 \
+      --hw 180 \
+      --hs "Invalid" \
+      http://example.com/FUZZ
+
+    # Show only successful responses
+    wfuzz -c -w wordlist.txt \
+      --sc 200,301,302 \
+      --sw 200 \
+      http://example.com/FUZZ
+    ```
+  </TabItem>
+</Tabs>
+
+## Authentication Methods
+
+<Tabs>
+  <TabItem label="Basic Auth">
+    ```bash
+    # Basic authentication
+    wfuzz -c -w users.txt -w passes.txt \
+      --basic FUZZ:FUZ2Z \
+      http://example.com/
+
+    # NTLM authentication
+    wfuzz -c -w users.txt -w passes.txt \
+      --ntlm 'domain\FUZZ:FUZ2Z' \
+      http://example.com/
+    ```
+  </TabItem>
+
+  <TabItem label="Cookie/Header Auth">
+    ```bash
+    # Cookie authentication
+    wfuzz -c -w tokens.txt \
+      -H "Cookie: session=FUZZ" \
+      http://example.com/
+
+    # Custom header authentication
+    wfuzz -c -w tokens.txt \
+      -H "Authorization: Bearer FUZZ" \
+      http://example.com/
+    ```
+  </TabItem>
+</Tabs>
+
+## Common Attack Scenarios
+
+### Login Form Bruteforce
+
+<Tabs>
+  <TabItem label="POST Requests">
+    ```bash
+    # Single list
+    wfuzz -c -w users.txt \
+      --hs "Login name" \
+      -d "name=FUZZ&password=FUZZ&autologin=1" \
+      http://example.com/login
+
+    # Two lists
+    wfuzz -c -z file,users.txt -z file,passes.txt \
+      --sc 200 \
+      -d "name=FUZZ&password=FUZ2Z" \
+      http://example.com/login
+    ```
+  </TabItem>
+
+  <TabItem label="GET Requests">
+    ```bash
+    # With proxy and cookies
+    wfuzz -c -w users.txt -w passes.txt \
+      --ss "Welcome" \
+      -p 127.0.0.1:8080:HTTP \
+      -b "PHPSESSIONID=1234567890abcdef" \
+      "http://example.com/login?user=FUZZ&pass=FUZ2Z"
+    ```
+  </TabItem>
+</Tabs>
+
+### Directory and File Discovery
+
+```bash
+# Basic directory scanning
+wfuzz -c \
+  -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt \
+  --sc 200,202,301,302,307,401 \
+  http://example.com/FUZZ
+
+# File extension fuzzing
+wfuzz -c \
+  -w wordlist.txt \
+  -z list,.php-.txt-.html \
+  http://example.com/FUZZ/FUZ2Z
+```
+
+### Virtual Host Discovery
+
+```bash
+# Subdomain enumeration
+wfuzz -c \
+  -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-20000.txt \
+  --hc 400,404,403 \
+  -H "Host: FUZZ.example.com" \
+  -u http://example.com \
+  -t 100
+```
+
+### API Endpoint Fuzzing
+
+```bash
+# RESTful API endpoints
+wfuzz -c \
+  -w /usr/share/wordlists/api_endpoints.txt \
+  --hc 404 \
+  https://api.example.com/FUZZ
+
+# Path parameters
+wfuzz -c \
+  -w params.txt \
+  --hw 11 \
+  'http://example.com/api/FUZZ=value'
+```
+
+## Advanced Features
+
+### Encoders
+
+<Tabs>
+  <TabItem label="Available Encoders">
+    ```bash
+    # List available encoders
+    wfuzz -e encoders
+
+    # Common encoders:
+    # - urlencode
+    # - md5
+    # - base64
+    # - hexlify
+    # - uri_hex
+    ```
+  </TabItem>
+
+  <TabItem label="Usage Examples">
+    ```bash
+    # MD5 encode payload
+    -z file,wordlist.txt,md5
+
+    # Base64 encode payload
+    -w wordlist.txt,base64
+
+    # URL encode payload
+    -z list,items-here,urlencode
+    ```
+  </TabItem>
+</Tabs>
+
+### Output Management
+
+```bash
+# List available output formats
+wfuzz -e printers
+
+# Save output to file
+-f /tmp/output,csv
+
+# Custom output format
+--oF custom_format.txt
+
+# Color output
+-c
+```
+
+## Performance Tips
+
+<Steps>
+1. **Connection Optimization**
+   ```bash
+   # Concurrent requests
+   -t 50 -s 0.1
+
+   # Connection pooling
+   --conn-delay 0.1
+   ```
+
+2. **Resource Management**
+   ```bash
+   # Limit requests
+   --limit 1000
+
+   # DNS cache
+   --dns-cache
+   ```
+
+3. **Error Handling**
+   ```bash
+   # Retry failed requests
+   --retries 3
+
+   # Hide common errors
+   --hc 404,500,503
+   ```
+</Steps>

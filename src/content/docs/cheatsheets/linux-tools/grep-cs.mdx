@@ -1,0 +1,284 @@
+---
+title: Grep Command Cheatsheet
+description: Advanced techniques and real-world examples for the grep command
+template: doc
+---
+
+import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+
+## Table of Contents
+
+- [Command Structure](#command-structure)
+- [Basic Search Options](#basic-search-options)
+- [Pattern Matching](#pattern-matching)
+- [Context Control](#context-control)
+- [File Handling](#file-handling)
+- [Output Control](#output-control)
+- [Performance Optimization](#performance-optimization)
+- [Real-World Examples](#real-world-examples)
+- [Advanced Techniques](#advanced-techniques)
+
+## Command Structure
+
+The grep command has two basic syntaxes:
+```bash
+grep [options] pattern [file...]
+cat [file] | grep [options] pattern
+```
+
+<Tabs>
+  <TabItem label="Components">
+    - **pattern**: Text or regular expression to search for
+    - **file**: Target files (optional)
+    - **options**: Modify search behavior
+  </TabItem>
+
+  <TabItem label="Basic Examples">
+    ```bash
+    grep "error" file.log           # Search in specific file
+    cat file.log | grep "error"     # Search using pipe
+    grep "error" *.log              # Search in multiple files
+    grep -r "TODO" ./src            # Recursive search
+    ```
+  </TabItem>
+</Tabs>
+
+## Basic Search Options
+
+<Tabs>
+  <TabItem label="Case Sensitivity">
+    ```bash
+    -i        # Case insensitive
+    -w        # Match whole words only
+    -x        # Match entire lines only
+    ```
+  </TabItem>
+
+  <TabItem label="Line Operations">
+    ```bash
+    -n        # Show line numbers
+    -c        # Count matching lines
+    -v        # Invert match (non-matching lines)
+    -l        # List matching files only
+    -L        # List non-matching files only
+    ```
+  </TabItem>
+
+  <TabItem label="Examples">
+    ```bash
+    grep -i "error" file.log          # Case-insensitive search
+    grep -w "log" file.txt            # Whole word "log" only
+    grep -n "TODO" *.py               # Show line numbers
+    grep -v "^#" config.txt           # Lines not starting with #
+    ```
+  </TabItem>
+</Tabs>
+
+## Pattern Matching
+
+<Tabs>
+  <TabItem label="Pattern Types">
+    ```bash
+    -E        # Extended regex (egrep)
+    -F        # Fixed strings (fgrep)
+    -P        # Perl regex syntax
+    -e        # Multiple patterns
+    ```
+  </TabItem>
+
+  <TabItem label="Common Patterns">
+    ```bash
+    ^         # Start of line
+    $         # End of line
+    .         # Any single character
+    *         # Zero or more occurrences
+    +         # One or more occurrences (with -E)
+    ?         # Zero or one occurrence (with -E)
+    []        # Character class
+    [^]       # Negated character class
+    ```
+  </TabItem>
+
+  <TabItem label="Examples">
+    ```bash
+    grep -E "error|warning" file.log     # Multiple patterns
+    grep "^#" config.txt                 # Lines starting with #
+    grep -E "\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b" -i file.txt  # Email addresses
+    grep -P "\d{3}-\d{2}-\d{4}" file.txt # SSN pattern with Perl regex
+    ```
+  </TabItem>
+</Tabs>
+
+## Context Control
+
+<Tabs>
+  <TabItem label="Context Options">
+    ```bash
+    -A n      # Show n lines after match
+    -B n      # Show n lines before match
+    -C n      # Show n lines before and after
+    ```
+  </TabItem>
+
+  <TabItem label="Examples">
+    ```bash
+    grep -A 3 "error" file.log       # Error + 3 lines after
+    grep -B 2 "exception" file.log   # Exception + 2 lines before
+    grep -C 1 "warning" file.log     # Warning + 1 line before & after
+    ```
+  </TabItem>
+</Tabs>
+
+## File Handling
+
+<Tabs>
+  <TabItem label="Directory Options">
+    ```bash
+    -r        # Recursive search
+    -R        # Recursive (follow symlinks)
+    --include # Include only certain files
+    --exclude # Exclude certain files
+    ```
+  </TabItem>
+
+  <TabItem label="Examples">
+    ```bash
+    grep -r "TODO" ./src
+    grep -R "error" /var/log
+    grep --include="*.py" -r "def" .
+    grep --exclude="*.log" -r "error" .
+    grep --exclude-dir={.git,node_modules} -r "TODO"
+    ```
+  </TabItem>
+</Tabs>
+
+## Output Control
+
+<Tabs>
+  <TabItem label="Output Options">
+    ```bash
+    -o        # Show only matched parts
+    -h        # Suppress filename prefix
+    -H        # Show filename prefix
+    --color   # Colorize output
+    ```
+  </TabItem>
+
+  <TabItem label="Examples">
+    ```bash
+    grep -o "error.*" file.log          # Only matching text
+    grep -h "pattern" *.txt             # No filenames
+    grep -H "pattern" single.txt        # Force filename
+    grep --color=auto "error" file.log  # Colored output
+    ```
+  </TabItem>
+</Tabs>
+
+## Performance Optimization
+
+<Steps>
+1. **Use Fixed Strings When Possible**
+   ```bash
+   grep -F "literal string" large_file.txt
+   ```
+
+2. **Limit Directory Search**
+   ```bash
+   grep --exclude-dir={.git,node_modules,dist} -r "pattern"
+   ```
+
+3. **Use Count for Large Files**
+   ```bash
+   grep -c "pattern" huge_file.txt
+   ```
+</Steps>
+
+## Real-World Examples
+
+<Tabs>
+  <TabItem label="Log Analysis">
+    ```bash
+    # Find errors and their context
+    grep -B2 -A1 "ERROR" /var/log/syslog
+
+    # Count errors by type
+    grep -o "ERROR:[^ ]*" logs.txt | sort | uniq -c
+
+    # Find IP addresses
+    grep -E "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" access.log
+    ```
+  </TabItem>
+
+  <TabItem label="Code Search">
+    ```bash
+    # Find TODO comments
+    grep -r "TODO\|FIXME" --include="*.{js,py,cpp}" .
+
+    # Find function definitions
+    grep -r "^[[:space:]]*def.*" --include="*.py" .
+
+    # Find deprecated API uses
+    grep -r "deprecated" --include="*.java" .
+    ```
+  </TabItem>
+
+  <TabItem label="System Administration">
+    ```bash
+    # Monitor auth attempts
+    grep "Failed password" /var/log/auth.log
+
+    # Check configuration
+    grep -v "^#" /etc/ssh/sshd_config | grep .
+
+    # Find large queries
+    grep "slow query" /var/log/mysql/mysql-slow.log
+    ```
+  </TabItem>
+</Tabs>
+
+## Advanced Techniques
+
+### Pipeline Operations
+
+```bash
+# Search and replace
+grep -l "old_text" *.txt | xargs sed -i 's/old_text/new_text/g'
+
+# Complex filters
+grep "error" log.txt | grep -v "debug" | sort | uniq -c
+
+# Compressed files
+zcat *.gz | grep "pattern"
+```
+
+### Combining with Other Tools
+
+```bash
+# With find
+find . -type f -exec grep "pattern" {} +
+
+# With awk
+grep "pattern" file.txt | awk '{print $2}'
+
+# With xargs
+grep -l "pattern" *.txt | xargs cp -t /backup/
+```
+
+:::tip
+For better script readability, use long options:
+```bash
+grep --ignore-case --line-number --context=3 "pattern"
+```
+:::
+
+:::note
+Always quote patterns containing spaces or special characters:
+```bash
+grep "search term" file.txt    # Correct
+grep search term file.txt      # Incorrect
+```
+:::
+
+:::warning
+Be careful with recursive searches in large directories. Use `--exclude-dir` for better performance.
+:::

@@ -1,0 +1,200 @@
+---
+title: Docker Cheatsheet
+description: A comprehensive guide to Docker commands and best practices
+template: doc
+---
+
+import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+
+## Table of Contents
+
+- [Container Management](#container-management)
+- [Image Operations](#image-operations)
+- [Volume Management](#volume-management)
+- [Network Operations](#network-operations)
+- [Docker Compose](#docker-compose)
+- [System Commands](#system-commands)
+- [Registry Operations](#registry-operations)
+
+## Container Management
+
+<Tabs>
+  <TabItem label="Basic Operations">
+    ```bash
+    docker run <image>         # Create and start a container
+    docker start <container>   # Start a stopped container
+    docker stop <container>    # Stop a running container
+    docker restart <container> # Restart a container
+    docker pause <container>   # Pause a running container
+    docker unpause <container> # Unpause a container
+    docker rm <container>      # Remove a container
+    ```
+  </TabItem>
+
+  <TabItem label="Container Info">
+    ```bash
+    docker ps                  # List running containers
+    docker ps -a               # List all containers
+    docker logs <container>    # View container logs
+    docker inspect <container> # Detailed container info
+    docker stats               # Container resource usage
+    docker top <container>     # Show running processes
+    ```
+  </TabItem>
+</Tabs>
+
+## Image Operations
+
+<Steps>
+1. **Basic Image Commands**
+   ```bash
+   docker images            # List available images
+   docker pull <image>      # Download an image
+   docker push <image>      # Upload an image to registry
+   docker rmi <image>       # Remove an image
+   docker build -t <name> . # Build image from Dockerfile
+   ```
+
+2. **Image Management**
+   ```bash
+   docker tag <image> <new>  # Create image tag
+   docker save <image>       # Save image to tar archive
+   docker load               # Load image from tar archive
+   docker history <image>    # Show image history
+   ```
+</Steps>
+
+## Volume Management
+
+```bash
+docker volume create      # Create a volume
+docker volume ls          # List volumes
+docker volume inspect     # Display volume info
+docker volume rm          # Remove volume
+docker volume prune       # Remove unused volumes
+```
+
+## Network Operations
+
+<Tabs>
+  <TabItem label="Network Commands">
+    ```bash
+    docker network create    # Create network
+    docker network ls       # List networks
+    docker network rm       # Remove network
+    docker network inspect  # Display network info
+    docker network connect  # Connect container to network
+    docker network disconnect# Disconnect container
+    ```
+  </TabItem>
+
+  <TabItem label="Network Types">
+    ```bash
+    # Network Drivers
+    bridge                  # Default network driver
+    host                   # Use host network
+    none                   # Disable networking
+    overlay                # Multi-host networking
+    macvlan                # Assign MAC address to container
+    ```
+  </TabItem>
+</Tabs>
+
+## Docker Compose
+
+<Steps>
+1. **Basic Commands**
+   ```bash
+   docker-compose up        # Create and start containers
+   docker-compose down      # Stop and remove containers
+   docker-compose start     # Start services
+   docker-compose stop      # Stop services
+   ```
+
+2. **Management**
+   ```bash
+   docker-compose ps        # List containers
+   docker-compose logs      # View output from containers
+   docker-compose build    # Build or rebuild services
+   docker-compose pull     # Pull service images
+   ```
+</Steps>
+
+## System Commands
+
+```bash
+docker info               # Display system-wide information
+docker version           # Show Docker version
+docker system df        # Show docker disk usage
+docker system prune     # Remove unused data
+docker events           # Get real-time events
+```
+
+## Registry Operations
+
+```bash
+docker login             # Log in to a registry
+docker logout           # Log out from registry
+docker search <term>    # Search Docker Hub for images
+docker pull <image>     # Pull image from registry
+docker push <image>     # Push image to registry
+```
+
+## Best Practices
+
+- Always use specific image tags instead of 'latest'
+- Use multi-stage builds to reduce image size
+- Implement health checks in Dockerfiles
+- Clean up unused images and containers regularly
+- Use .dockerignore to exclude unnecessary files
+- Follow the principle of one concern per container
+- Use Docker Compose for multi-container applications
+
+## Common Workflows
+
+<Steps>
+1. **Development Workflow**
+   - Write Dockerfile
+   - Build image
+   - Test locally
+   - Push to registry
+   - Deploy to environment
+
+2. **Production Deployment**
+   - Pull latest image
+   - Stop current container
+   - Remove old container
+   - Start new container
+   - Verify health checks
+</Steps>
+
+## Environment Variables and Configuration
+
+<Tabs>
+  <TabItem label="Environment Variables">
+    ```bash
+    docker run -e KEY=value  # Set environment variable
+    docker run --env-file    # Use env file
+    ```
+  </TabItem>
+
+  <TabItem label="Configuration">
+    ```bash
+    # docker-compose.yml example
+    environment:
+      - DEBUG=1
+      - API_KEY=${API_KEY}
+    env_file:
+      - .env
+    ```
+  </TabItem>
+</Tabs>
+
+## Container Resource Management
+
+```bash
+docker run --memory        # Set memory limit
+docker run --cpus         # Set CPU limit
+docker run --gpus         # GPU access
+docker update            # Update container resources
+```

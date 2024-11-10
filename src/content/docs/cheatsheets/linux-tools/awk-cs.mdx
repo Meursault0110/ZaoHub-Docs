@@ -1,0 +1,207 @@
+---
+title: AWK Command Cheatsheet
+description: Complete guide and reference for AWK text processing
+template: doc
+---
+
+import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+
+## Table of Contents
+
+- [Basic Syntax](#basic-syntax)
+- [Pattern Matching](#pattern-matching)
+- [Built-in Variables](#built-in-variables)
+- [Field Operations](#field-operations)
+- [Text Processing](#text-processing)
+- [Operators](#operators)
+- [Control Structures](#control-structures)
+- [Built-in Functions](#built-in-functions)
+- [Arrays](#arrays)
+- [Input/Output](#input-output)
+- [Advanced Techniques](#advanced-techniques)
+- [Practical Examples](#practical-examples)
+- [Tips and Best Practices](#tips-and-best-practices)
+
+## Basic Syntax
+
+<Tabs>
+  <TabItem label="Structure">
+    ```bash
+    awk 'pattern { action }' file
+    ```
+    - **pattern**: Condition to match (optional)
+    - **action**: Operation to perform when pattern matches
+    - **file**: Input file (optional, can use stdin)
+  </TabItem>
+
+  <TabItem label="Basic Examples">
+    ```bash
+    awk '{ print }' file.txt           # Print all lines
+    awk '/pattern/' file.txt           # Print lines matching pattern
+    awk 'length($0) > 80'              # Print lines longer than 80 chars
+    ```
+  </TabItem>
+</Tabs>
+
+## Built-in Variables
+
+<Tabs>
+  <TabItem label="Record Variables">
+    ```bash
+    $0      # Entire current line
+    $1-$n   # Field numbers (columns)
+    NF      # Number of fields in current record
+    NR      # Current record (line) number
+    FNR     # Record number in current file
+    FILENAME # Current input filename
+    ```
+  </TabItem>
+
+  <TabItem label="Separator Variables">
+    ```bash
+    FS      # Field separator (default: whitespace)
+    OFS     # Output field separator
+    RS      # Record separator (default: newline)
+    ORS     # Output record separator
+    OFMT    # Output format for numbers
+    ```
+  </TabItem>
+</Tabs>
+
+## Field Operations
+
+<Tabs>
+  <TabItem label="Basic Field Operations">
+    ```bash
+    # Print specific fields
+    awk '{print $1, $3, $NF}'          # First, third, and last fields
+    awk '{print $(NF-1)}'              # Second-to-last field
+    awk '{print NF}'                   # Number of fields in line
+    
+    # Field manipulation
+    awk '{$1=$1; print}'               # Force field recalculation
+    awk '{$2="new"; print}'            # Change second field
+    ```
+  </TabItem>
+
+  <TabItem label="Field Processing">
+    ```bash
+    # Sum values in first column
+    awk '{sum += $1} END {print sum}'
+    
+    # Average of first column
+    awk '{sum += $1} END {print sum/NR}'
+    
+    # Join fields with custom separator
+    awk '{print $1 "-" $2}'
+    ```
+  </TabItem>
+</Tabs>
+
+## Text Processing
+
+<Tabs>
+  <TabItem label="Pattern Matching">
+    ```bash
+    # Match in specific field
+    awk '$1 ~ /pattern/'               # Pattern in first field
+    awk '$NF ~ /pattern/'              # Pattern in last field
+    
+    # Multiple patterns
+    awk '/pattern1/ && /pattern2/'
+    awk '$1 ~ /pattern/ || $2 > 100'
+    ```
+  </TabItem>
+
+  <TabItem label="Text Replacement">
+    ```bash
+    # Replace text globally
+    awk '{gsub(/old/, "new"); print}'
+    
+    # Replace in specific field
+    awk '{$1=gsub(/old/, "new", $1); print}'
+    
+    # Case-insensitive replacement
+    awk '{IGNORECASE=1; gsub(/old/, "new"); print}'
+    ```
+  </TabItem>
+</Tabs>
+
+## Advanced Field Processing
+
+<Tabs>
+  <TabItem label="Field Manipulation">
+    ```bash
+    # Custom field separator
+    awk -F',' '{print $1, $2}'         # CSV files
+    awk -F':' '{print $1, $NF}'        # System files
+    
+    # Multiple separators
+    awk -F'[,:;]' '{print $1, $2}'
+    
+    # Change separator for output
+    awk 'BEGIN{OFS=","} {print $1, $2}'
+    ```
+  </TabItem>
+
+  <TabItem label="Complex Operations">
+    ```bash
+    # Conditional field printing
+    awk '{if ($1 > 100) print $1, $2}'
+    
+    # Field transformation
+    awk '{$2 = toupper($2); print}'
+    
+    # Calculate field differences
+    awk '{print $2 - $1}'
+    ```
+  </TabItem>
+</Tabs>
+
+## Practical Examples
+
+### Log File Processing
+```bash
+# Count HTTP status codes
+awk '$9 ~ /^[0-9]/ {codes[$9]++} 
+     END {for (code in codes) 
+          print code, codes[code]}' access.log
+
+# Find error messages
+awk '$3 == "ERROR" {print $0}' logfile.txt
+
+# Time-based filtering
+awk '$1 > "2023-01-01" {print $0}' dated_log.txt
+```
+
+### Data Analysis
+```bash
+# Column statistics
+awk '{
+    sum += $1
+    sumsq += $1 * $1
+} 
+END {
+    print "Count:", NR
+    print "Sum:", sum
+    print "Average:", sum/NR
+    print "Std Dev:", sqrt(sumsq/NR - (sum/NR)^2)
+}' data.txt
+
+# Frequency count
+awk '{count[$1]++} 
+     END {for (word in count) 
+          printf "%-20s %d\n", word, count[word]}'
+```
+
+### File Operations
+```bash
+# Numbered output
+awk '{printf "%5d : %s\n", NR, $0}'
+
+# Format CSV as table
+awk -F',' '{printf "%-20s %-10s %s\n", $1, $2, $3}'
+
+# Remove duplicate lines
+awk '!seen[$0]++'
+```

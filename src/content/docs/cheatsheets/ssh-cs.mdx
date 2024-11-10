@@ -1,6 +1,6 @@
 ---
-title: SSH (Secure Shell) Cheatsheet
-description: A comprehensive guide to SSH commands and common functionalities
+title: SSH Cheatsheet
+description: A comprehensive guide to SSH commands and best practices
 template: doc
 ---
 
@@ -8,211 +8,189 @@ import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
 
 ## Table of Contents
 
-1. [Basic SSH Commands](#basic-ssh-commands)
-2. [Common Options](#common-options)
-3. [File Transfer](#file-transfer)
-4. [Remote Commands](#remote-commands)
-5. [SSH Keys](#ssh-keys)
-6. [Port Forwarding](#port-forwarding)
-7. [Configuration Tips](#configuration-tips)
+- [Basic Commands](#basic-commands)
+- [Key Management](#key-management)
+- [Connection Management](#connection-management)
+- [Port Forwarding](#port-forwarding)
+- [Configuration](#configuration)
+- [Security Best Practices](#security-best-practices)
+- [Advanced Operations](#advanced-operations)
 
-## Basic SSH Commands
-
-<Tabs>
-  <TabItem label="Basic Connection">
-    ```bash
-    # Basic connection
-    ssh username@hostname
-    
-    # Connect to specific port
-    ssh -p 2222 username@hostname
-    
-    # Connect with specific identity file
-    ssh -i ~/.ssh/key.pem username@hostname
-    
-    # Connect with custom configuration
-    ssh myserver    # Using configuration from ~/.ssh/config
-    ```
-  </TabItem>
-
-  <TabItem label="Exit and Escape">
-    ```bash
-    # Exit SSH session
-    exit
-    logout
-    Ctrl + D
-    
-    # SSH escape sequences
-    ~.    # Terminate session
-    ~^Z   # Suspend SSH session
-    ~#    # List forwarded connections
-    ~?    # List all escape sequences
-    ```
-  </TabItem>
-</Tabs>
-
-## Common Options
-
-```bash
-# Verbosity levels
-ssh -v username@hostname     # Verbose mode
-ssh -vv username@hostname    # More verbose
-ssh -vvv username@hostname   # Debug level
-
-# Connection options
-ssh -4 username@hostname     # Force IPv4
-ssh -6 username@hostname     # Force IPv6
-ssh -q username@hostname     # Quiet mode
-ssh -T username@hostname     # Disable pseudo-terminal allocation
-
-# Authentication options
-ssh -o PubkeyAuthentication=no username@hostname    # Disable public key auth
-ssh -o PreferredAuthentications=password username@hostname  # Force password auth
-```
-
-## File Transfer
+## Basic Commands
 
 <Steps>
-1. **Local to Remote**
+1. **Connection Basics**
    ```bash
-   # Copy file
-   scp file.txt username@hostname:/remote/directory
-   
-   # Copy directory
-   scp -r directory username@hostname:/remote/directory
-   
-   # Copy with specific port
-   scp -P 2222 file.txt username@hostname:/remote/directory
+   ssh username@hostname           # Basic SSH connection
+   ssh -p 2222 username@hostname  # Connect to specific port
+   ssh -v username@hostname       # Verbose mode for debugging
    ```
 
-2. **Remote to Local**
+2. **File Transfer**
    ```bash
-   # Copy file
-   scp username@hostname:/remote/file.txt /local/directory
-   
-   # Copy directory
-   scp -r username@hostname:/remote/directory /local/directory
+   scp file.txt user@host:/path   # Copy file to remote
+   scp user@host:/path/file .     # Copy file from remote
+   scp -r folder user@host:/path  # Copy entire directory
    ```
 
-3. **Between Remote Hosts**
+3. **Remote Command Execution**
    ```bash
-   scp user1@host1:/file user2@host2:/directory
+   ssh user@host 'command'        # Execute remote command
+   ssh user@host 'ls -la'         # List remote directory
    ```
 </Steps>
 
-## Remote Commands
+## Key Management
 
 <Tabs>
-  <TabItem label="Execute Commands">
+  <TabItem label="Generate Keys">
     ```bash
-    # Single command
-    ssh username@hostname 'ls -la'
-    
-    # Multiple commands
-    ssh username@hostname 'cd /var/log && tail -f syslog'
-    
-    # Interactive shell command
-    ssh -t username@hostname 'top'
-    
-    # Command with sudo
-    ssh -t username@hostname 'sudo service nginx restart'
+    ssh-keygen -t ed25519                     # Generate Ed25519 key (recommended)
+    ssh-keygen -t rsa -b 4096                 # Generate RSA key
+    ssh-keygen -t ed25519 -f ~/.ssh/key_name  # Custom key name
+    ssh-keygen -p -f ~/.ssh/id_ed25519        # Change key passphrase
     ```
   </TabItem>
 
-  <TabItem label="Shell Scripts">
+  <TabItem label="Key Installation">
     ```bash
-    # Execute local script on remote host
-    ssh username@hostname 'bash -s' < local_script.sh
-    
-    # Execute script with arguments
-    ssh username@hostname 'bash -s' < script.sh arg1 arg2
+    ssh-copy-id user@hostname                 # Copy public key to server
+    ssh-copy-id -i ~/.ssh/key_name user@host  # Copy specific key
+    cat ~/.ssh/id_ed25519.pub | ssh user@host "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
     ```
   </TabItem>
 </Tabs>
 
-## SSH Keys
+## Connection Management
 
 ```bash
-# Generate new key pair
-ssh-keygen -t ed25519 -C "your_email@example.com"
-
-# Copy public key to server
-ssh-copy-id username@hostname
-ssh-copy-id -i ~/.ssh/custom_key.pub username@hostname
-
-# Add key to SSH agent
-eval $(ssh-agent -s)
-ssh-add ~/.ssh/id_ed25519
-
-# List keys in SSH agent
-ssh-add -l
+ssh -N user@host          # Connect without executing commands
+ssh -f user@host         # Background connection
+ssh -M user@host         # Master mode for connection sharing
+ssh -O exit user@host    # Close master connection
 ```
 
 ## Port Forwarding
 
-```bash
-# Local port forwarding (access remote service locally)
-ssh -L 8080:localhost:80 username@hostname
+<Steps>
+1. **Local Forwarding**
+   ```bash
+   ssh -L 8080:localhost:80 user@host     # Forward local port to remote
+   ssh -L 3306:remote-host:3306 user@host # Database port forwarding
+   ```
 
-# Remote port forwarding (expose local service remotely)
-ssh -R 8080:localhost:3000 username@hostname
+2. **Remote Forwarding**
+   ```bash
+   ssh -R 8080:localhost:80 user@host     # Forward remote port to local
+   ssh -R 52698:localhost:52698 user@host # Remote forwarding for tools
+   ```
 
-# Dynamic port forwarding (SOCKS proxy)
-ssh -D 1080 username@hostname
+3. **Dynamic Forwarding**
+   ```bash
+   ssh -D 9090 user@host                  # SOCKS proxy
+   ssh -D 1080 -C -q -N user@host        # Quiet SOCKS proxy
+   ```
+</Steps>
 
-# Multiple port forwards
-ssh -L 8080:localhost:80 -L 3000:localhost:3000 username@hostname
-```
-
-## Configuration Tips
+## Configuration
 
 <Tabs>
-  <TabItem label="SSH Config File">
+  <TabItem label="SSH Config">
     ```bash
     # ~/.ssh/config
     Host myserver
-        HostName server.example.com
+        HostName example.com
         User username
         Port 2222
-        IdentityFile ~/.ssh/custom_key
-        
-    # Wildcard matching
-    Host *.production
-        User prod-user
-        IdentityFile ~/.ssh/prod_key
+        IdentityFile ~/.ssh/special_key
     ```
   </TabItem>
 
-  <TabItem label="Common Options">
+  <TabItem label="Server Config">
     ```bash
-    # Keep connection alive
-    ServerAliveInterval 60
-    ServerAliveCountMax 3
+    # /etc/ssh/sshd_config
+    Port 22
+    PermitRootLogin no
+    PasswordAuthentication no
+    PubkeyAuthentication yes
+    ```
+  </TabItem>
+</Tabs>
+
+## Security Best Practices
+
+<Steps>
+1. **Key Security**
+   - Use Ed25519 or RSA-4096 keys
+   - Always protect private keys with strong passphrases
+   - Store private keys securely
+   - Regularly rotate keys
+
+2. **Server Hardening**
+   - Disable password authentication
+   - Use non-standard ports
+   - Implement fail2ban
+   - Keep software updated
+   - Use allowlists for IP addresses
+
+3. **Connection Security**
+   - Use SSH config files for consistent settings
+   - Enable only required authentication methods
+   - Limit user access rights
+   - Use connection timeouts
+</Steps>
+
+## Advanced Operations
+
+<Tabs>
+  <TabItem label="SSH Agent">
+    ```bash
+    eval $(ssh-agent)                # Start SSH agent
+    ssh-add                         # Add default keys
+    ssh-add ~/.ssh/specific_key     # Add specific key
+    ssh-add -l                      # List added keys
+    ```
+  </TabItem>
+
+  <TabItem label="Tunneling">
+    ```bash
+    # HTTP proxy
+    ssh -L 8080:localhost:3000 user@host
     
-    # Compression for slow connections
-    Compression yes
+    # Database tunnel
+    ssh -L 5432:database:5432 user@host
     
-    # Share multiple sessions
-    ControlMaster auto
-    ControlPath ~/.ssh/control/%r@%h:%p
-    ControlPersist 10m
+    # X11 forwarding
+    ssh -X user@host
+    ```
+  </TabItem>
+
+  <TabItem label="Debugging">
+    ```bash
+    ssh -vv user@host              # Very verbose output
+    ssh -T git@github.com          # Test GitHub SSH connection
+    ssh-keygen -y -f private_key   # Verify key pair
     ```
   </TabItem>
 </Tabs>
 
 ## Common Use Cases
 
-```bash
-# X11 Forwarding
-ssh -X username@hostname        # Enable X11 forwarding
-ssh -Y username@hostname        # Enable trusted X11 forwarding
+<Steps>
+1. **Remote Development**
+   - Set up SSH keys
+   - Configure VS Code Remote
+   - Set up port forwarding
+   - Use SSH agent forwarding
 
-# Keep session alive
-ssh -o ServerAliveInterval=60 username@hostname
+2. **Server Management**
+   - Create maintenance scripts
+   - Set up monitoring
+   - Configure automated backups
+   - Implement security policies
 
-# Bypass known_hosts check (not recommended for production)
-ssh -o StrictHostKeyChecking=no username@hostname
-
-# Connect through a jump host
-ssh -J jumpuser@jumphost username@destination
-```
+3. **Database Access**
+   - Set up secure tunnels
+   - Configure connection sharing
+   - Implement access controls
+</Steps>

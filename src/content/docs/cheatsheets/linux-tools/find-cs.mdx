@@ -1,0 +1,527 @@
+---
+title: Find Command Cheatsheet
+description: Advanced techniques and real-world examples for the find command
+template: doc
+---
+
+import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+
+## Table of Contents
+
+- [Command Structure](#command-structure)
+- [Basic Search Patterns](#basic-search-patterns)
+- [Search by Name](#search-by-name)
+- [Search by Type](#search-by-type)
+- [Search by Size](#search-by-size)
+- [Search by Time](#search-by-time)
+- [Search by Permissions](#search-by-permissions)
+- [Search by Owner](#search-by-owner)
+- [Actions and Execution](#actions-and-execution)
+- [Complex Operations](#complex-operations)
+- [Best Practices](#best-practices)
+
+## Command Structure
+
+The basic syntax of the `find` command is:
+```bash
+find [path] [options] [expression]
+```
+
+<Tabs>
+  <TabItem label="Components">
+    - **[path]**: Starting point of the search (defaults to current directory if not specified)
+    - **[options]**: Modify search behavior
+    - **[expression]**: Define search criteria (name, type, size, etc.)
+  </TabItem>
+
+  <TabItem label="Examples">
+    ```bash
+    find .                     # Search in current directory
+    find /home                 # Search in /home
+    find /home /var           # Search in multiple directories
+    find / -maxdepth 1        # Search only in root directory
+    ```
+  </TabItem>
+</Tabs>
+
+## Basic Search Patterns
+
+<Steps>
+1. **Simple Search**
+   ```bash
+   find . -name "file.txt"     # Find specific file
+   find /home -type d          # Find all directories
+   ```
+
+2. **Multiple Criteria**
+   ```bash
+   find . -type f -name "*.txt"  # Find all .txt files
+   find . -type f -empty         # Find empty files
+   ```
+
+3. **Negation**
+   ```bash
+   find . ! -name "*.txt"        # Find files NOT ending in .txt
+   find . ! -type d              # Find everything that's not a directory
+   ```
+</Steps>
+
+## Search by Name
+
+<Tabs>
+  <TabItem label="Name Options">
+    ```bash
+    -name "pattern"     # Case-sensitive name search
+    -iname "pattern"    # Case-insensitive name search
+    -path "pattern"     # Search in full path
+    -regex "pattern"    # Use regex pattern
+    ```
+  </TabItem>
+
+  <TabItem label="Examples">
+    ```bash
+    find . -name "*.txt"          # All .txt files
+    find . -iname "README*"       # Case-insensitive README files
+    find . -path "*/test/*"       # Files in test directories
+    find . -regex ".*\.(jpg|png)" # Image files using regex
+    ```
+  </TabItem>
+</Tabs>
+
+## Search by Type
+
+The `-type` option accepts these file type indicators:
+
+```bash
+find . -type f          # Regular files
+find . -type d          # Directories
+find . -type l          # Symbolic links
+find . -type b          # Block devices
+find . -type c          # Character devices
+find . -type p          # Named pipes
+find . -type s          # Sockets
+```
+
+## Search by Size
+
+<Tabs>
+  <TabItem label="Size Units">
+    - `c`: bytes
+    - `k`: kilobytes
+    - `M`: megabytes
+    - `G`: gigabytes
+  </TabItem>
+
+  <TabItem label="Size Operators">
+    ```bash
+    find . -size n      # Exactly n units
+    find . -size +n     # Greater than n units
+    find . -size -n     # Less than n units
+    ```
+  </TabItem>
+
+  <TabItem label="Examples">
+    ```bash
+    find . -size 100c           # Exactly 100 bytes
+    find . -size +10M           # Larger than 10 megabytes
+    find . -size -1G            # Smaller than 1 gigabyte
+    find . -size +1M -size -5M  # Between 1-5 megabytes
+    ```
+  </TabItem>
+</Tabs>
+
+## Search by Time
+
+<Tabs>
+  <TabItem label="Time Types">
+    - `-mtime`: Content modification time
+    - `-atime`: Access time
+    - `-ctime`: Status change time
+    - `-mmin`, `-amin`, `-cmin`: Time in minutes
+  </TabItem>
+
+  <TabItem label="Time Operators">
+    ```bash
+    find . -mtime n      # Exactly n days ago
+    find . -mtime +n     # More than n days ago
+    find . -mtime -n     # Less than n days ago
+    ```
+  </TabItem>
+
+  <TabItem label="Examples">
+    ```bash
+    find . -mtime -1            # Modified in last 24 hours
+    find . -atime +7            # Accessed more than 7 days ago
+    find . -mmin -30            # Modified in last 30 minutes
+    find . -ctime -7 -type f    # Files changed in last week
+    ```
+  </TabItem>
+</Tabs>
+
+## Search by Permissions
+
+<Tabs>
+  <TabItem label="Permission Options">
+    ```bash
+    -perm mode        # Exact permissions
+    -perm -mode       # At least these permissions
+    -perm /mode       # Any of these permissions
+    ```
+  </TabItem>
+
+  <TabItem label="Examples">
+    ```bash
+    find . -perm 755                # Exactly 755
+    find . -perm -644               # At least rw-r--r--
+    find . -perm /u+w               # Any user-writable
+    find . -perm -u+x               # User-executable
+    ```
+  </TabItem>
+</Tabs>
+
+## Search by Owner
+
+```bash
+# User ownership
+find . -user username          # Files owned by username
+find . -uid N                 # Files owned by UID N
+
+# Group ownership
+find . -group groupname       # Files owned by groupname
+find . -gid N                # Files owned by GID N
+```
+
+## Actions and Execution
+
+<Tabs>
+  <TabItem label="Basic Actions">
+    ```bash
+    -delete      # Delete matching files
+    -print       # Print matches (default)
+    -ls          # Detailed listing
+    -quit        # Exit after first match
+    ```
+  </TabItem>
+
+  <TabItem label="Execute Commands">
+    ```bash
+    # Execute command on each file
+    find . -name "*.log" -exec rm {} \;
+    
+    # Interactive execution
+    find . -name "*.tmp" -ok rm {} \;
+    
+    # Multiple files at once
+    find . -name "*.jpg" -exec convert {} {}.png \;
+    ```
+  </TabItem>
+
+  <TabItem label="Complex Examples">
+    ```bash
+    # Compress old log files
+    find /var/log -name "*.log" -mtime +30 \
+      -exec gzip {} \;
+
+    # Copy matched files preserving structure
+    find . -name "*.pdf" -exec cp --parents {} /backup/ \;
+    
+    # Change permissions recursively
+    find . -type f -exec chmod 644 {} +
+    ```
+  </TabItem>
+</Tabs>
+
+## Complex Operations
+
+<Steps>
+1. **Combining Conditions**
+   ```bash
+   # AND operation (implicit)
+   find . -type f -name "*.txt" -size +1M
+   
+   # OR operation
+   find . -name "*.jpg" -o -name "*.png"
+   
+   # NOT operation
+   find . ! -name "*.txt" -type f
+   ```
+
+2. **Directory Management**
+   ```bash
+   # Find and remove empty directories
+   find . -type d -empty -delete
+   
+   # Skip specific directories
+   find . -path "./node_modules" -prune -o -print
+   ```
+
+3. **Advanced Time Operations**
+   ```bash
+   # Files modified in last hour, larger than 1MB
+   find . -mmin -60 -size +1M -type f
+   
+   # Recently changed executables
+   find . -type f -executable -ctime -1
+   ```
+</Steps>
+<br/>
+---
+
+## Real-World Scenarios
+
+<Tabs>
+  <TabItem label="File Management">
+    ```bash
+    # Find and remove files older than 30 days in /tmp
+    find /tmp -type f -mtime +30 -delete
+
+    # Find all .log files larger than 100MB
+    find /var/log -type f -name "*.log" -size +100M -exec ls -lh {} \;
+
+    # Find and compress old log files while maintaining structure
+    find . -name "*.log" -mtime +7 -exec gzip {} \;
+
+    # Find duplicate files (by name) and create a report
+    find . -type f -name "*.jpg" -exec md5sum {} \; | sort | uniq -d
+    ```
+  </TabItem>
+
+  <TabItem label="System Maintenance">
+    ```bash
+    # Find files with incorrect permissions
+    find /home -type f -perm -o+w -ls
+
+    # Find world-writable directories
+    find / -type d -perm -o+w -ls
+
+    # Find and fix ownership of files
+    find /home/user -not -user username -exec chown username:group {} \;
+
+    # Find files with specific ACL settings
+    find . -type f -exec getfacl {} \; | grep specific_user
+    ```
+  </TabItem>
+</Tabs>
+
+## Advanced Search Techniques
+
+### Using Multiple Time Conditions
+
+```bash
+# Files modified in last hour but not accessed in last week
+find . -type f -mmin -60 -not -atime -7
+
+# Files changed in last 24 hours but not modified
+find . -type f -ctime -1 -not -mtime -1
+
+# Files accessed recently but created long ago
+find . -type f -atime -1 -ctime +30
+```
+
+### Complex Permission Searches
+
+<Tabs>
+  <TabItem label="Permission Combinations">
+    ```bash
+    # Files with exact permissions
+    find . -type f -perm 644
+
+    # Files with at least these permissions
+    find . -type f -perm -644
+
+    # Files with any of these permissions
+    find . -type f -perm /u+w,g+w
+
+    # Files without specific permissions
+    find . -type f ! -perm -o+r
+    ```
+  </TabItem>
+
+  <TabItem label="Special Permissions">
+    ```bash
+    # Find SUID files
+    find / -type f -perm -4000
+
+    # Find SGID files
+    find / -type f -perm -2000
+
+    # Find sticky bit directories
+    find / -type d -perm -1000
+
+    # Find files with special permissions
+    find / -type f -perm /6000
+    ```
+  </TabItem>
+</Tabs>
+
+## Advanced Execution Techniques
+
+### Using -exec with Multiple Commands
+
+```bash
+# Multiple commands with -exec
+find . -type f -name "*.txt" -exec chmod 644 {} \; -exec echo "Processing: {}" \;
+
+# Using shell features with -exec
+find . -type f -name "*.log" -exec sh -c '
+    for file do
+        echo "Processing $file"
+        gzip "$file"
+    done
+' sh {} +
+```
+
+### Optimizing -exec Operations
+
+<Steps>
+1. **Using -exec with +**
+   ```bash
+   # Less efficient (runs command for each file)
+   find . -name "*.txt" -exec chmod 644 {} \;
+
+   # More efficient (runs command with multiple files)
+   find . -name "*.txt" -exec chmod 644 {} +
+   ```
+
+2. **Using xargs**
+   ```bash
+   # Parallel processing with xargs
+   find . -name "*.jpg" -print0 | xargs -0 -P4 convert -resize 800x600
+
+   # Safe handling of filenames with spaces
+   find . -name "*.txt" -print0 | xargs -0 grep "pattern"
+   ```
+</Steps>
+
+## Error Handling and Debugging
+
+<Tabs>
+  <TabItem label="Error Control">
+    ```bash
+    # Suppress permission denied messages
+    find / -name "*.conf" 2>/dev/null
+
+    # Log errors to file
+    find / -name "*.conf" 2>>/var/log/find_errors.log
+
+    # Continue on error
+    find . -name "*.txt" -exec rm {} \; || true
+    ```
+  </TabItem>
+
+  <TabItem label="Debugging">
+    ```bash
+    # Print debug information
+    find . -name "*.txt" -print -printf "Found: %p\n"
+
+    # Show detailed information about each file
+    find . -name "*.conf" -ls
+
+    # Track time spent on operations
+    find . -name "*.log" -printf "Processing %p... " \
+      -exec sh -c 'time gzip "$1"' sh {} \;
+    ```
+  </TabItem>
+</Tabs>
+
+## Integration with Other Tools
+
+### Find with Git
+
+```bash
+# Find files not in git
+find . -type f -not -path "./.git/*" -print0 | 
+  git check-ignore --stdin -z
+
+# Find and add new files to git
+find . -type f -not -path "./.git/*" -exec git add {} +
+
+# Find files modified after last commit
+find . -type f -newer .git/index
+```
+
+### Find with Grep
+
+```bash
+# Search for pattern in specific files
+find . -type f -name "*.py" -exec grep -l "pattern" {} +
+
+# Search with context
+find . -type f -name "*.log" -exec grep -C 2 "error" {} \;
+
+# Search case-insensitive
+find . -type f -name "*.txt" -exec grep -i "pattern" {} +
+```
+
+## Performance Optimization
+
+<Steps>
+1. **Limiting Search Depth**
+   ```bash
+   # Limit directory depth
+   find . -maxdepth 2 -type f
+
+   # Skip specific directories
+   find . -path "./node_modules" -prune -o -type f -print
+   ```
+
+2. **Filesystem Optimization**
+   ```bash
+   # Stay on same filesystem
+   find / -xdev -type f -size +100M
+
+   # Use locate for faster searches
+   locate "*.conf" | find -f
+   ```
+
+3. **Memory Usage**
+   ```bash
+   # Limit process memory
+   find . -type f -size +1G -exec ulimit -v 1048576 \; \
+     -exec process_large_file {} \;
+   ```
+</Steps>
+
+## Backup and Archive Operations
+
+```bash
+# Create backup of files modified today
+find . -type f -mtime -1 -exec cp --parents {} /backup/ \;
+
+# Create tar archive of old files
+find . -type f -mtime +30 -print0 | 
+  tar czf old_files.tar.gz --null -T -
+
+# Sync files modified in last hour
+find . -type f -mmin -60 -exec rsync -av {} backup/ \;
+```
+
+## Security Considerations
+
+<Tabs>
+  <TabItem label="Security Auditing">
+    ```bash
+    # Find files with insecure permissions
+    find / -type f -perm -o+w ! -path "/proc/*" ! -path "/sys/*"
+
+    # Find unauthorized SUID/SGID files
+    find / -type f \( -perm -4000 -o -perm -2000 \) -ls
+
+    # Find recently modified system files
+    find /etc -type f -mtime -1 -ls
+    ```
+  </TabItem>
+
+  <TabItem label="Safe Practices">
+    ```bash
+    # Always verify destructive operations
+    find . -name "*.tmp" -exec echo "Would delete {}" \;
+    
+    # Use -ok for interactive confirmation
+    find . -perm -o+w -ok chmod 644 {} \;
+    
+    # Backup before bulk operations
+    find . -name "*.conf" -exec cp {} {}.bak \;
+    ```
+  </TabItem>
+</Tabs>

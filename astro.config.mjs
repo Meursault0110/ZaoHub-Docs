@@ -48,9 +48,8 @@ export default defineConfig({
 					items: [
 						{label: "🔶 Git", link: "cheatsheets/git-cs"},
 						{label: "🔐 ssh", link: "cheatsheets/ssh-cs"},
-						{label: "🔏 scp", link: "#"},
-						{label: "🐳 Docker", link: "#"},
-						{label: "🦈 Wireshark/Tshark", link: "#"},
+						{label: "🐳 Docker", link: "cheatsheets/docker-cs"},
+						{label: "🦈 Wireshark/Tshark", link: "cheatsheets/tshark-cs"},
 						{
 							label: "CMS Tools",
 							collapsed: true,
@@ -75,27 +74,27 @@ export default defineConfig({
 							label: "Linux-Tools",
 							collapsed: true,
 							items: [
-								{label: "find", link: "#"},
-								{label: "awk", link: "#"},
-								{label: "grep", link: "#"},
-								{label: "sed", link: "#"},
+								{label: "find", link: "cheatsheets/linux-tools/find-cs"},
+								{label: "awk", link: "cheatsheets/linux-tools/awk-cs"},
+								{label: "grep", link: "cheatsheets/linux-tools/grep-cs"},
+								{label: "sed", link: "cheatsheets/linux-tools/sed-cs"},
 							],
 						},
 						{
 							label: "Pentesting",
 							collapsed: true,
 							items: [
-								{label: "sqlmap", link: "#"},
-								{label: "Metasploit", link: "#"},
-								{label: "aircrack-ng", link: "#"},
-								{label: "nmap", link: "#"},
+								{label: "Sqlmap", link: "cheatsheets/pentesting/sqlmap-cs"},
+								{label: "Metasploit", link: "cheatsheets/pentesting/metasploit-cs"},
+								{label: "Aircrack-ng", link: "cheatsheets/pentesting/aircrackng-cs"},
+								{label: "Nmap", link: "cheatsheets/pentesting/nmap-cs"},
 							],
 						},
 						{
 							label: "Fuzzing",
 							collapsed: true,
 							items: [
-								{label: "Wfuzz", link: "#"},
+								{label: "Wfuzz", link: "cheatsheets/fuzzing/wfuzz-cs"},
 								{label: "Gobuster", link: "#"},
 								{label: "fuff", link: "#"},
 							],

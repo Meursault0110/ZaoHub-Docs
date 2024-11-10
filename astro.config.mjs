@@ -95,8 +95,8 @@ export default defineConfig({
 							collapsed: true,
 							items: [
 								{label: "Wfuzz", link: "cheatsheets/fuzzing/wfuzz-cs"},
-								{label: "Gobuster", link: "#"},
-								{label: "fuff", link: "#"},
+								{label: "Gobuster", link: "cheatsheets/fuzzing/gobuster-cs"},
+								{label: "fuff", link: "cheatsheets/fuzzing/fuff-cs"},
 							],
 						},
 					],

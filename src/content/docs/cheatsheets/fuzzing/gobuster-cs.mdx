@@ -1,0 +1,260 @@
+---
+title: Gobuster Cheatsheet
+description: Complete guide and reference for the Gobuster directory/file enumeration tool
+template: doc
+---
+
+import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+
+![Gobuster Cheatsheet](../../../../assets/gobuster-cs.png)
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Installation](#installation)
+- [Global Options](#global-options)
+- [Mode Types](#mode-types)
+- [Directory Mode](#directory-mode)
+- [DNS Mode](#dns-mode)
+- [VHOST Mode](#vhost-mode)
+- [S3 Mode](#s3-mode)
+- [Advanced Techniques](#advanced-techniques)
+- [Real-World Examples](#real-world-examples)
+- [Best Practices](#best-practices)
+
+## Overview
+
+Gobuster is a versatile tool used for brute-forcing:
+- URIs (directories and files)
+- DNS subdomains
+- Virtual Host names
+- Open Amazon S3 buckets
+
+## Installation
+
+<Tabs>
+  <TabItem label="Using apt">
+    ```bash
+    sudo apt update
+    sudo apt install gobuster
+    ```
+  </TabItem>
+
+  <TabItem label="Using git">
+    ```bash
+    git clone https://github.com/OJ/gobuster.git
+    cd gobuster
+    go get && go build
+    sudo mv gobuster /usr/local/bin/
+    ```
+  </TabItem>
+</Tabs>
+
+## Global Options
+
+<Tabs>
+  <TabItem label="Basic Options">
+    ```bash
+    -z, --no-progress  # Don't display progress
+    -o, --output      # Output file to write results
+    -q, --quiet       # Don't print banner and noise
+    -t, --threads     # Number of concurrent threads (default 10)
+    -v, --verbose     # Verbose output (errors)
+    -w, --wordlist    # Path to the wordlist
+    -i, --show-ips    # Show IP addresses
+    --delay           # Time delay between requests
+    ```
+  </TabItem>
+
+  <TabItem label="Example Usage">
+    ```bash
+    # Basic usage with global options
+    gobuster dir -u http://example.com \
+      -w wordlist.txt \
+      -t 50 \
+      -o results.txt \
+      -v
+    
+    # Quiet mode with no progress
+    gobuster dir -u http://example.com \
+      -w wordlist.txt \
+      -q \
+      -z
+    ```
+  </TabItem>
+</Tabs>
+
+## Mode Types
+
+Available modes and their descriptions:
+- `dir`: Classic directory brute-forcing mode
+- `dns`: DNS subdomain brute-forcing mode
+- `vhost`: Virtual host brute-forcing mode
+- `s3`: AWS S3 bucket enumeration mode
+
+## Directory Mode
+
+<Tabs>
+  <TabItem label="DIR Options">
+    ```bash
+    -u, --url                # Target URL
+    -f, --add-slash         # Append / to each request
+    -c, --cookies           # Cookies to use
+    -e, --expanded         # Expanded mode, print full URLs
+    -x, --extensions       # File extension(s) to search
+    -r, --follow-redirect  # Follow redirects
+    -H, --headers         # Specify HTTP headers
+    -l, --include-length  # Include body length in output
+    -k, --no-tls-validation # Skip TLS verification
+    -n, --no-status       # Don't print status codes
+    -P, --password        # Password for Basic Auth
+    -p, --proxy           # Proxy to use
+    -s, --status-codes    # Positive status codes
+    -b, --status-codes-blacklist # Negative status codes
+    -a, --useragent       # Set User-Agent
+    -U, --username        # Username for Basic Auth
+    -d, --discover-backup # Search for backup files
+    --wildcard           # Force continued operation when wildcard found
+    ```
+  </TabItem>
+
+  <TabItem label="Examples">
+    ```bash
+    # Basic directory scan
+    gobuster dir -u https://example.com -w ~/wordlists/shortlist.txt
+
+    # With content length
+    gobuster dir -u https://example.com -w ~/wordlists/shortlist.txt -l
+
+    # Extended scan with multiple options
+    gobuster dir \
+      -u https://example.com \
+      -w ~/wordlists/shortlist.txt \
+      -x php,txt,html \
+      -H "Authorization: Bearer token123" \
+      -c "session=abc123" \
+      -l \
+      -e
+    ```
+  </TabItem>
+</Tabs>
+
+## DNS Mode
+
+<Tabs>
+  <TabItem label="DNS Options">
+    ```bash
+    -d, --domain        # Target domain
+    -r, --resolver      # Custom DNS server
+    -c, --show-cname    # Show CNAME records
+    -i, --show-ips      # Show IP addresses
+    --timeout          # DNS resolver timeout (default 1s)
+    ```
+  </TabItem>
+
+  <TabItem label="Examples">
+    ```bash
+    # Basic subdomain enumeration
+    gobuster dns -d example.com -w ~/wordlists/subdomains.txt
+
+    # With custom threads and IP display
+    gobuster dns -d example.com -t 50 -w common-names.txt -i
+
+    # Using custom resolver
+    gobuster dns \
+      -d example.com \
+      -w ~/wordlists/subdomains.txt \
+      -r 8.8.8.8 \
+      -i
+
+    # Wildcard DNS detection
+    gobuster dns -d 0.0.1.xip.io -w ~/wordlists/subdomains.txt
+    ```
+  </TabItem>
+</Tabs>
+
+## VHOST Mode
+
+<Tabs>
+  <TabItem label="VHOST Options">
+    ```bash
+    -u, --url               # Target URL
+    -c, --cookies          # Cookies to use
+    -r, --follow-redirect  # Follow redirects
+    -H, --headers         # HTTP headers
+    -k, --no-tls-validation # Skip TLS verification
+    -P, --password        # Basic Auth password
+    -p, --proxy           # Proxy to use
+    -a, --useragent       # User-Agent string
+    -U, --username        # Basic Auth username
+    ```
+  </TabItem>
+
+  <TabItem label="Examples">
+    ```bash
+    # Basic vhost enumeration
+    gobuster vhost -u https://example.com -w common-vhosts.txt
+
+    # With custom headers and auth
+    gobuster vhost \
+      -u https://example.com \
+      -w common-vhosts.txt \
+      -H "X-Custom-Header: value" \
+      -U admin \
+      -P password
+    ```
+  </TabItem>
+</Tabs>
+
+## S3 Mode
+
+<Tabs>
+  <TabItem label="S3 Options">
+    ```bash
+    # Basic S3 bucket enumeration
+    gobuster s3 -w bucket-names.txt
+
+    # With custom options
+    gobuster s3 \
+      -w bucket-names.txt \
+      --timeout 20s \
+      -t 50
+    ```
+  </TabItem>
+</Tabs>
+
+## Advanced Techniques
+
+### Custom Status Code Handling
+
+```bash
+# Include specific status codes
+gobuster dir \
+  -u http://example.com \
+  -w wordlist.txt \
+  -s "200,204,301,302,307,401,403"
+
+# Exclude status codes
+gobuster dir \
+  -u http://example.com \
+  -w wordlist.txt \
+  -b "404,500,501"
+```
+
+### Authentication and Headers
+
+```bash
+# Basic authentication
+gobuster dir \
+  -u http://example.com \
+  -w wordlist.txt \
+  -U username \
+  -P password
+
+# Custom headers
+gobuster dir \
+  -u http://example.com \
+  -w wordlist.txt \
+  -H "Authorization: Bearer token" \
+  -H "X-Custom-Header: value"
+```

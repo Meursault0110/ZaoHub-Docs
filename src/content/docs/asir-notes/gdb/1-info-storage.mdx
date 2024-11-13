@@ -1,0 +1,78 @@
+---
+title: Information Storage Systems
+description: A comprehensive guide to information storage, from file-based systems to modern database management
+---
+
+import { Card, CardGrid, Tabs, TabItem, Icon, Steps } from '@astrojs/starlight/components';
+
+## Introduction
+
+In today's digital age, the demand for efficient data management has never been higher. This guide explores the evolution of information storage systems, from traditional file-based approaches to modern database-oriented solutions.
+
+<Card title='Key Concept' icon='seti:smarty'>
+  In computer science, data is any informative element relevant to a user. The field has continuously developed tools to facilitate data management, adapting computer interfaces to resemble familiar manual processes.
+</Card>
+
+## Information Systems (IS)
+
+Information Systems (IS) are the backbone of modern data management, integrating various elements to handle business information effectively.
+
+<CardGrid stagger>
+  <Card title="Physical Resources" icon="document">
+    Folders, documents, equipment, disks, etc.
+  </Card>
+  <Card title="Human Resources" icon="seti:mustache">
+    Personnel who handle the information
+  </Card>
+  <Card title="Protocol" icon="list-format">
+    Rules for information management (formats, templates, etc.)
+  </Card>
+</CardGrid>
+
+## Data Storage Hierarchy
+
+<Tabs>
+  <TabItem label="Primary Storage">
+    Fast, directly accessible by CPU (e.g., RAM)
+  </TabItem>
+  <TabItem label="Secondary Storage">
+    Slower, higher capacity (e.g., hard drives, SSDs, USB drives)
+  </TabItem>
+  <TabItem label="Intermediate Storage">
+    Buffer areas in main memory for efficient data transfer
+  </TabItem>
+</Tabs>
+
+## File-based Systems
+
+File-based systems were the original method of information storage in computer systems.
+
+### Types of Files
+
+<Steps>
+1. **Plain Files**: Text-only files without formatting (e.g., ASCII, UTF-8)
+2. **Direct Access Files**: Stored on addressable devices with a unique key field
+3. **Indexed Files**: Similar to direct access, but with multiple key fields and sorted storage
+</Steps>
+
+## Database-oriented Information Systems
+
+Modern information systems centralize data in a common database accessible by multiple applications.
+
+### Advantages and Disadvantages
+
+<CardGrid>
+  <Card title="Advantages">
+    - Data and program independence
+    - Reduced redundancy
+    - Improved data integrity and security
+    - Better documentation and access efficiency
+    - Optimized storage space
+  </Card>
+  <Card title="Disadvantages">
+    - Costly installation
+    - Requires qualified personnel
+    - Long and complex implementation
+    - Dependence on commercial systems
+  </Card>
+</CardGrid>

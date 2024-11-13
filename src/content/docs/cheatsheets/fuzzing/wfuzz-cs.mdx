@@ -12,6 +12,14 @@ import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
 
 Wfuzz is a powerful web application fuzzer that replaces any reference to the FUZZ keyword in URLs, headers, cookies, or other HTTP request elements with values from a specified payload. This makes it an essential tool for web application security assessments.
 
+
+## Commmon Snippets
+
+```bash
+wfuzz -c -w $wordlist -t $threads -v --hc 404 $host/FUZZ          
+wfuzz -c -w $wordlist -t $threads -v --hc 404 -H "Host: FUZZ.$host" $host                                
+```
+
 ## Table of Contents
 
 - [Installation](#installation)

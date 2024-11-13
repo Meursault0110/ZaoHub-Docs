@@ -36,14 +36,30 @@ export default defineConfig({
 							],
 						},
 						{
-							label: "Lenguajes de Marcas",
+							label: "Databases",
+							collapsed: true,
+							items: [
+								{
+									label: "Design DBs",
+									collapsed: true,
+									items: [
+										{label: "1. Information Storage", link: "asir-notes/gdb/1-info-storage"},
+										{label: "2. DataBases Systems", link: "asir-notes/gdb/2-db-systems"},
+										{label: "3. Relational DataBases", link: "asir-notes/gdb/3-relational-databases"},
+										{label: "4. Relational Models", link: "asir-notes/gdb/4-relational-model"},
+										],
+								},
+							],
+						},
+						{
+							label: "Lenguajes de Marcas (XML)",
 							collapsed: true,
 							items: [],
 						},
 					],
 				},
 				{
-					label: "📒 Cheatsheets",
+					label: "📒 Cheatsheets 🎇",
 					collapsed: true,
 					items: [
 						{label: "🔶 Git", link: "cheatsheets/git-cs"},
@@ -102,7 +118,7 @@ export default defineConfig({
 					],
 				},
 				{
-					label: "🎯 IT Fundamentals",
+					label: "🎯 IT Fundamentals 🔰",
 					collapsed: true,
 					items: [
 						{
@@ -160,7 +176,7 @@ export default defineConfig({
 					],
 				},
 				{
-					label: "🛢 DataBases", 
+					label: "🛢 DataBases 🧨", 
 					collapsed: true,
 					items: [
 						{
@@ -180,18 +196,18 @@ export default defineConfig({
 					],
 				},
 				{
-					label: "🐧 Linux Hardening", 
+					label: "🐧 Linux Hardening 🧨", 
 					collapsed: true,
 					items: [],
 				},
 				{
-					label: "⏹ Windows Hardening", 
+					label: "⏹ Windows Hardening 🧨", 
 					collapsed: true,
 					items: [],
 				},
 
 				{
-					label: "⛩ Programación",
+					label: "⛩ Programación 🔰",
 					collapsed: true,
 					items: [
 						{
@@ -259,7 +275,7 @@ export default defineConfig({
 					],
 				},
 				{
-					label: "🔐 Privacidad && OPSEC",
+					label: "🔐 Privacidad && OPSEC 🛑",
 					collapsed: true,
 					items: [
 						{
@@ -270,24 +286,37 @@ export default defineConfig({
 						{
 							label: "OPSEC",
 							collapsed: true,
-							items: [],
+							items: [
+								{label: "0. Introduction", link: "privacy-opsec/opsec/0-introduction"},
+								{label: "1. Jolly Rogers", link: "privacy-opsec/opsec/1-jolly-rogers"},
+								{label: "2. Securing the OS (Hardening)", link: "privacy-opsec/opsec/2-securing-os"},
+								{label: "3. Hardware Spoofing", link: "privacy-opsec/opsec/3-hardware-spoofing"},
+								{label: "4. Encryption", link: "privacy-opsec/opsec/4-encryption"},
+								{label: "5. VMs (Qubes, Whonix, etc.)", link: "privacy-opsec/opsec/5-vms"},
+								{label: "6. VPSs, RDP & VPNs", link: "privacy-opsec/opsec/6-vps-rdp-vpn"},
+								{label: "7. Anonymous Crypto", link: "privacy-opsec/opsec/7-anon-crypto"},
+								{label: "8. Using PGP", link: "privacy-opsec/opsec/8-use-pgp"},
+								{label: "9. Anonymous Emails", link: "privacy-opsec/opsec/9-anon-mails"},
+								{label: "10. Final !!imp", link: "privacy-opsec/opsec/10-final"},
+							],
 						},
 					],
 				},
 				{
-					label: "👥 OSINT",
+					label: "👥 OSINT 🧨",
 					collapsed: true,
 					items: [
-						{label: "0. Introduction", link: "#"},
-						{label: "1. Search Engines", link: "#"},
-						{label: "2. Specializad Tools", link: "#"},
-						{label: "3. Social Avenues", link: "#"},
-						{label: "4. Data Breaches", link: "#"},
-						{label: "5. Dark Web", link: "#"},
+						{label: "0. OSINT Bookmark", link: "/osint-se/osint/0-bookmarks"},
+						{label: "1. Introduction", link: "/osint-se/osint/1-introduction"},
+						{label: "2. Search Engines", link: "/osint-se/osint/2-search-engines"},
+						{label: "3. Specializad Tools", link: "/osint-se/osint/3-specialized-tools"},
+						{label: "4. Social Avenues", link: "/osint-se/osint/4-social-avenues"},
+						{label: "5. Data Breaches", link: "/osint-se/osint/5-data-breaches"},
+						{label: "6. Dark Web", link: "/osint-se/osint/6-dark-web"},
 					],
 				},
 				{
-					label: "🎭 Social Engineering",
+					label: "🎭 Social Engineering 🧨",
 					collapsed: true,
 					items: [
 						{label: "0. Introduction", link: "#"},
@@ -304,7 +333,7 @@ export default defineConfig({
 					],
 				},
 				{
-					label: "🌀 General Pentesting",
+					label: "🌀 General Pentesting 🔰",
 					collapsed: true,
 					items: [
 						{label: "Pentesting Methodology", link: "#"},
@@ -313,7 +342,7 @@ export default defineConfig({
 					],
 				},
 				{
-					label: "⚙ OSs Pentesting",
+					label: "⚙ OSs Pentesting 🔰",
 					collapsed: true,
 					items: [
 						{
@@ -348,13 +377,13 @@ export default defineConfig({
 					],
 				},
 				{
-					label: "👽 Networking Pentesting",
+					label: "👽 Networking Pentesting 🔰",
 					collapsed: true,
 					items: [
 					],
 				},
 				{
-					label: "🕸 Web Pentesting",
+					label: "🕸 Web Pentesting 🔰",
 					collapsed: true,
 					items: [
 						{
@@ -414,22 +443,31 @@ export default defineConfig({
 						{
 							label: "Wifi",
 							collapsed: true,
-							items: [],
+							items: [
+								{ label: "0, Introduction", link: "#" },
+								{ label: "1. Required Wifi Hardware", link: "#" },
+								{ label: "2. Pre-Requisites", link: "#" },
+								{ label: "3. Hacking Wifi Networks", link: "#" },
+								{ label: "4. Unable to hack Wifi", link: "#" },
+								{ label: "5. Increase the POWER", link: "#" },
+								{ label: "6. Locating the Access Point", link: "#" },
+								{ label: "7. WPA3 Networks", link: "#" },
+							],
 						},
 						{
-							label: "Bluetooth",
+							label: "Bluetooth 🧨",
 							collapsed: true,
 							items: [],
 						},
 						{
-							label: "SDR",
+							label: "SDR 🧨",
 							collapsed: true,
 							items: [],
 						},
 					],
 				},
 				{
-					label: "📱 Mobile Pentesting",
+					label: "📱 Mobile Pentesting 🧨",
 					collapsed: true,
 					items: [
 						{
@@ -445,7 +483,7 @@ export default defineConfig({
 					],
 				},
 				{
-					label: "🎱 Low Level Pentesting",
+					label: "🎱 Low Level Pentesting 🧨",
 					collapsed: true,
 					items: [
 						{
@@ -471,7 +509,7 @@ export default defineConfig({
 					],
 				},
 				{
-					label: "🧩 Others ( Pentesting )",
+					label: "🧩 Others ( Pentesting ) 🧨",
 					collapsed: true,
 					items: [
 						{
@@ -492,7 +530,7 @@ export default defineConfig({
 					],
 				},
 				{
-					label: "🔷 Blue Team",
+					label: "🔷 Blue Team 🛑",
 					collapsed: true,
 					items: [
 						{
@@ -503,7 +541,7 @@ export default defineConfig({
 					],
 				},
 				{
-					label: "🎇 Desarrollo Web",
+					label: "🎇 Desarrollo Web 🔰",
 					collapsed: true,
 					items: [
 						{

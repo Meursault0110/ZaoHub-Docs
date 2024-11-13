@@ -1,0 +1,178 @@
+---
+title: "Securing the OS"
+description: "A comprehensive guide on securing your operating system for enhanced security and privacy"
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+# Securing the OS
+
+## Overview
+
+Regardless of your host machine (Windows, macOS, or Linux), you should perform all sensitive operations in a Virtual Machine (VM) rather than directly on your host system. This includes running Tor, browsing the dark web, storing passwords, or handling any questionable content. Sensitive data should be saved to an encrypted USB drive to minimize digital traces on your laptop.
+
+The two main recommended approaches are:
+1. Running Whonix in a VM
+2. Booting Tails from USB with persistence
+
+This guide covers hardening and securing computers running Windows, macOS, or Linux. The security measures discussed here are meant to help you operate safely online.
+
+## Minimum System Requirements
+
+### Basic Requirements
+- Minimum 4GB of RAM
+- 60+ GB of hard disk space  
+- 4 Cores
+
+### Advanced Requirements
+- 32+ GB of RAM
+- 1 TB+ of hard disk space
+- 8+ cores
+
+## Core Security Principles
+
+- Purchase work equipment with cash only
+- Keep work devices completely separate from personal use
+- Never connect work devices to networks tied to your identity
+- Only connect to networks after proper security setup
+- Choose hardware based on your specific needs and use cases
+
+## Operating System Security
+
+<Tabs>
+<TabItem label="Windows Security">
+
+### Windows Hardening Tips
+
+- Keep system fully updated
+- Save sensitive data to encrypted USB drives only
+- Disable Bluetooth
+- Change MAC address on each boot
+- Use BitLocker for hard drive encryption
+- Set BIOS password and disable USB boot (unless needed)
+- Enable Windows Firewall
+- Install BleachBit/CCleaner for regular cleanup
+- Maintain updated antivirus protection
+- Use GlassWire to monitor network connections
+
+### Important Windows Commands
+
+Clear PowerShell history:
+```powershell
+powershell -c "remove-item -force -path $env:APPDATA\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt"
+```
+
+Disable PowerShell history:
+```powershell
+powershell -c "Set-PSReadlineOption -HistorySaveStyle SaveNothing"
+```
+
+Clear event logs:
+```cmd
+for /F "tokens=*" %1 in ('wevtutil.exe el') DO wevtutil.exe cl "%1"
+```
+
+Flush memory cache:
+```cmd
+%windir%\system32\rundll32.exe advapi32.dll,ProcessIdleTasks
+```
+</TabItem>
+
+<TabItem label="macOS Security">
+
+### macOS Hardening Tips
+
+- Keep system fully updated
+- Save sensitive data to encrypted USB drives only
+- Disable Bluetooth
+- Change MAC address on each boot
+- Use FileVault for disk encryption
+- Install cleanup utilities
+- Set firmware password
+- Disable sharing features
+- Enable firewall
+- Install antivirus protection
+- Use LittleSnitch/LuLu for network monitoring
+
+### Important Terminal Commands
+
+Clear bash/zsh history:
+```bash
+unset HISTFILE
+unset SAVEFILE
+rm ~/.bash_history
+ln -s /dev/null ~/.bash_history
+export HISTFILESIZE=0
+export HISTSIZE=0
+export HISTFILE=/dev/null
+export SAVEFILE=/dev/null
+rm ~/.zsh_history
+ln -s /dev/null ~/.zsh_history
+```
+
+Clear system logs:
+```bash
+sudo rm -r /private/var/log /private/var/logs /var/log /var/logs /Library/Logs/
+sudo log erase --all
+```
+
+Purge memory:
+```bash
+sudo purge > /dev/null
+```
+</TabItem>
+
+<TabItem label="Linux Security">
+
+### Linux Hardening Tips
+
+- Keep system fully updated
+- Save sensitive data to encrypted USB drives only
+- Disable Bluetooth
+- Install antivirus protection
+- Set firmware password
+- Use IP tables or network monitoring tools
+
+### Important Terminal Commands
+
+Clear bash history:
+```bash
+unset HISTFILE
+unset SAVEFILE
+rm ~/.bash_history
+ln -s /dev/null ~/.bash_history
+export HISTFILESIZE=0
+export HISTSIZE=0
+export HISTFILE=/dev/null
+export SAVEFILE=/dev/null
+```
+
+Remove tracking packages:
+```bash
+sudo apt purge apport popularity-contest -y
+sudo apt autoremove
+```
+</TabItem>
+</Tabs>
+
+## Additional Security Measures
+
+- Install network monitoring tools (GlassWire/LittleSnitch)
+- Cover webcam with physical blocker
+- Encrypt all sensitive data
+- Use strong passwords/passphrases
+- Keep security tools updated
+- Monitor system for unusual behavior
+- Regularly clear logs and history
+
+## Important Security Notes
+
+1. Always verify security of tools and applications
+2. Don't trust any system to be completely secure
+3. Plan for potential security breaches
+4. Keep up with security updates and news
+5. Use encryption for all sensitive data
+6. Maintain physical security of devices
+7. Practice proper operational security
+
+Remember: Security is an ongoing process, not a one-time setup. Regularly review and update your security measures to maintain effective protection.

@@ -1,0 +1,344 @@
+---
+title: Relational Model
+description: Complete guide to understanding the relational model in databases, its concepts, constraints, and implementation
+---
+
+import { Card, CardGrid, Tabs, TabItem, Icon } from '@astrojs/starlight/components';
+
+## Introduction
+
+:::note[Historical Context]
+Edgar Frank Codd defined the foundations of the relational model in the late 1960s. In 1970, he published "A Relational Model of data for Large Shared Data Banks," which is considered one of the most influential documents in computer science history.
+:::
+
+Before Codd's model, the only standardized theoretical model was Codasyl, which was widely used in the 1970s. Codd introduced the term "relation" (sometimes translated as interrelation) that groups data independently of its physical storage.
+
+## Core Objectives
+
+<CardGrid>
+  <Card title="Physical Independence" icon='seti:julia'>
+    The way data is stored should not influence its logical manipulation. If physical storage changes, users shouldn't even notice.
+  </Card>
+  <Card title="Logical Independence" icon='puzzle'>
+    Applications using the database should not require modification when database elements are modified.
+  </Card>
+  <Card title="Flexibility" icon='codePen'>
+    The database easily offers different views depending on users and applications.
+  </Card>
+  <Card title="Uniformity" icon='patreon'>
+    Logical structures always have a single conceptual form (tables).
+  </Card>
+</CardGrid>
+
+## Basic Terminology
+
+### Relations and Their Components
+
+<CardGrid>
+  <Card title="Relation (Table)" icon="document">
+    - A mathematical construct representing a set of tuples
+    - Visually represented as a two-dimensional table
+    - Contains rows (tuples) and columns (attributes)
+    - Has a unique name within the database schema
+  </Card>
+  
+  <Card title="Attributes (Columns)" icon="information">
+    - Named properties or characteristics of an entity
+    - Each attribute has an associated domain
+    - Must have unique names within a relation
+    - Can be simple or composite
+    - Types: Simple, Composite, Single-valued, Multi-valued, Derived
+  </Card>
+</CardGrid>
+
+<CardGrid>
+  <Card title="Tuples (Rows)" icon="list-format">
+    - Represents a single instance or record in the relation
+    - Must be unique within the relation
+    - Order is not significant
+    - Cannot contain repeating groups (1NF requirement)
+  </Card>
+  
+  <Card title="Domain" icon="seti:sbt">
+    - Set of allowable values for an attribute
+    - Defines the data type and constraints
+    - Examples: integers, strings, dates
+    - Can have additional restrictions (CHECK constraints)
+  </Card>
+</CardGrid>
+
+### Extended Concepts
+
+<Tabs>
+  <TabItem label="Schema">
+    - Logical structure of the relation
+    - Written as R(A₁, A₂, ..., Aₙ)
+    - R is relation name, A₁ to Aₙ are attributes
+    - Represents metadata about the relation
+  </TabItem>
+  
+  <TabItem label="Instance">
+    - Actual data in the relation at a given time
+    - Collection of tuples currently stored
+    - Changes frequently unlike schema
+    - Must conform to all constraints
+  </TabItem>
+  
+  <TabItem label="Degree">
+    - Number of attributes in a relation
+    - Also called arity or width
+    - Unary (1), Binary (2), Ternary (3), etc.
+    - Remains constant unless schema changes
+  </TabItem>
+  
+  <TabItem label="Cardinality">
+    - Number of tuples in a relation
+    - Changes as data is modified
+    - Important for query optimization
+    - Used in relationship classifications
+  </TabItem>
+</Tabs>
+
+### Key Concepts
+
+- **Domain**: Contains all possible values that a particular attribute can take
+- **Degree**: Indicates the size of a relation based on the number of columns
+- **Cardinality**: Number of tuples in a relation
+
+## Table Types
+
+### Persistent Tables
+- **Base**: Independent tables created by specifying their structure
+- **Views**: Tables that only store a query definition
+- **Snapshots**: Views that store both data and query
+
+### Temporary Tables
+Automatically eliminated by the system. Can be any of the above types.
+
+## Keys
+
+:::tip[Important Keys]
+- **Candidate Key**: Set of attributes that uniquely identify each tuple
+- **Primary Key**: Chosen candidate key as tuple identifier
+- **Alternative Key**: Any candidate key that isn't primary
+- **Foreign Key**: Attributes related to another table's primary key
+:::
+
+## Relational Model Constraints
+
+### Inherent Constraints
+
+1. **Domain Constraint**: Any value in a tuple must belong to the attribute's domain
+2. **Key Constraint**: Each tuple in a relation must be unique
+
+### User Constraints
+
+<CardGrid>
+  <Card title="NULL Constraint">
+    Specifies whether an attribute can contain null values
+  </Card>
+  <Card title="Uniqueness">
+    Marks candidate keys that aren't primary keys
+  </Card>
+  <Card title="Entity Integrity">
+    No key attribute can have a null value
+  </Card>
+  <Card title="Referential Integrity">
+    Foreign key values must match existing primary keys in referenced relations
+  </Card>
+</CardGrid>
+
+## Codd's Rules
+
+:::note[Rule Zero]
+For a system to be called a relational database management system, it must use its relational capabilities exclusively to manage the database.
+:::
+
+1. **Information Rule**: All information must be represented as data values in tables
+2. **Guaranteed Access**: Every data value must be accessible through table name, primary key, and column name
+3. **Systematic NULL Treatment**: NULL values must be supported systematically
+4. **Dynamic Catalog**: Database description must be represented at the logical level like regular data
+5. **Comprehensive Language**: Must support at least one relational language
+6. **View Updating**: All theoretically updatable views must be updatable by the system
+7. **High-Level Operations**: Insert, update, and delete operations must be supported at the set level
+8. **Physical Independence**: Changes in physical storage or access methods don't affect application logic
+9. **Logical Independence**: Changes in base tables don't affect application logic
+10. **Integrity Independence**: Integrity constraints must be definable in the database language
+11. **Distribution Independence**: Same operations work in both centralized and distributed databases
+12. **Nonsubversion**: If a low-level interface exists, it cannot be used to bypass integrity rules
+
+## ER/EER to Relational Model Transformation
+
+### Basic Entity Types
+
+:::tip[Transformation Rules]
+1. **Regular Entity Types**
+   - Create a relation for each strong entity
+   - Primary key becomes the relation's primary key
+   - Include all simple attributes
+   - For composite attributes, include only their components
+   - Choose one alternative for derived attributes
+
+   ```sql
+   EMPLOYEE (
+     emp_id: INTEGER PRIMARY KEY,
+     first_name: VARCHAR(50),
+     last_name: VARCHAR(50),
+     birth_date: DATE
+   )
+   ```
+
+2. **Weak Entity Types**
+   - Create a relation for the weak entity
+   - Include primary key of owner entity
+   - Add partial key attributes
+   - Combined key becomes primary key
+
+   ```sql
+   DEPENDENT (
+     emp_id: INTEGER,
+     dependent_name: VARCHAR(50),
+     relation_type: VARCHAR(20),
+     PRIMARY KEY (emp_id, dependent_name),
+     FOREIGN KEY (emp_id) REFERENCES EMPLOYEE
+   )
+   ```
+:::
+
+### Attribute Transformations
+
+<CardGrid>
+  <Card title="Simple Attributes">
+    - Directly converted to columns
+    - Maintain their data types
+    - Example: name VARCHAR(50)
+  </Card>
+  
+  <Card title="Composite Attributes">
+    - Either decompose into simple attributes
+    - Or create as single concatenated field
+    - Example: address_street, address_city vs full_address
+  </Card>
+  
+  <Card title="Multi-valued Attributes">
+    - Create new relation
+    - Include primary key of original entity
+    - Add attribute for the multi-valued field
+    - Create composite primary key
+  </Card>
+  
+  <Card title="Derived Attributes">
+    - Option 1: Store calculation formula
+    - Option 2: Store computed value
+    - Option 3: Create view or computed column
+  </Card>
+</CardGrid>
+
+### Relationship Transformations
+
+:::note[Relationship Mapping]
+1. **One-to-One (1:1)**
+   - Option A: Foreign key in either relation
+   - Option B: Merge into single relation if total participation
+   - Add unique constraint on foreign key
+   
+   ```sql
+   EMPLOYEE (
+     emp_id: INTEGER PRIMARY KEY,
+     dept_id: INTEGER UNIQUE,
+     FOREIGN KEY (dept_id) REFERENCES DEPARTMENT
+   )
+   ```
+
+2. **One-to-Many (1:N)**
+   - Add foreign key in N-side relation
+   - No additional relation needed
+   
+   ```sql
+   EMPLOYEE (
+     emp_id: INTEGER PRIMARY KEY,
+     dept_id: INTEGER,
+     FOREIGN KEY (dept_id) REFERENCES DEPARTMENT
+   )
+   ```
+
+3. **Many-to-Many (M:N)**
+   - Create new relation for relationship
+   - Include primary keys of both entities
+   - Add any relationship attributes
+   
+   ```sql
+   PROJECT_WORKER (
+     emp_id: INTEGER,
+     project_id: INTEGER,
+     hours_worked: INTEGER,
+     PRIMARY KEY (emp_id, project_id),
+     FOREIGN KEY (emp_id) REFERENCES EMPLOYEE,
+     FOREIGN KEY (project_id) REFERENCES PROJECT
+   )
+   ```
+:::
+
+### Advanced Transformations
+
+<CardGrid>
+  <Card title="Inheritance/Specialization">
+    1. Single Relation: Merge all attributes
+    2. Multiple Relations: Separate tables with foreign keys
+    3. Union Relations: Mixed approach based on constraints
+  </Card>
+  
+  <Card title="Aggregation">
+    - Transform underlying relationship first
+    - Create relation for aggregated unit
+    - Link through foreign keys
+  </Card>
+</CardGrid>
+
+### N-ary Relationships
+
+:::caution[Complex Relationships]
+For relationships involving more than two entities:
+1. Create new relation for the relationship
+2. Include primary keys of all participating entities
+3. Add any relationship attributes
+4. Primary key typically includes all foreign keys
+:::
+
+### Best Practices
+
+<CardGrid>
+  <Card title="Performance Considerations">
+    - Consider indexing strategy
+    - Evaluate denormalization needs
+    - Analyze query patterns
+  </Card>
+  
+  <Card title="Integrity Rules">
+    - Implement all necessary constraints
+    - Consider triggers for complex rules
+    - Document assumptions and decisions
+  </Card>
+</CardGrid>
+
+[Rest of original content remains the same...]
+
+## Normalization
+
+:::caution[Important Process]
+Normalization is a process to verify that defined tables meet certain conditions. It aims to guarantee:
+- No redundancy exists
+- Coherent representation of entities and relationships
+- Logical problems are minimized
+:::
+
+### Normal Forms
+
+1. **First Normal Form (1NF)**: No repeating groups allowed
+2. **Second Normal Form (2NF)**: Must be in 1NF and non-key attributes must fully depend on the primary key
+3. **Third Normal Form (3NF)**: Must be in 2NF and no transitive dependencies allowed
+4. **Boyce-Codd Normal Form (BCNF)**: Must be in 3NF and every determinant must be a candidate key
+
+:::note[Advanced Forms]
+There are additional normal forms (4NF, 5NF, DKNF, 6NF) but they are mainly theoretical and rarely used in real-world applications.
+:::

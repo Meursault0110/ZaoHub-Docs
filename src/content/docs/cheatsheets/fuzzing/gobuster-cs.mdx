@@ -8,6 +8,17 @@ import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
 
 ![Gobuster Cheatsheet](../../../../assets/gobuster-cs.png)
 
+## About gobuster
+
+Gobuster is a tool used to brute-force: URIs (directories and files) in web sites, DNS subdomains (with wildcard support), Virtual Host names on target web servers, Open Amazon S3 buckets, Open Google Cloud buckets and TFTP servers.
+
+## Commmon Snippets
+
+```bash
+gobuster dir -u $url -w $wordlist -t $threads -v                     # Directorios
+gobuster vhost -u $url -w $wordlist --append-domain -t 200           # Subdominios
+```
+
 ## Table of Contents
 
 - [Overview](#overview)

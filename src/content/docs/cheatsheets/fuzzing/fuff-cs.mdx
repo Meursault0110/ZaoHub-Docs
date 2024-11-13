@@ -8,9 +8,21 @@ import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
 
 ![fuff Cheatsheet](../../../../assets/fuff-cs.png)
 
+## About fuff
+
+Ffuf (Fuzz Faster U Fool) is a high-speed web fuzzer written in Go, designed for web application security testing and discovery.
+
+## Commmon Snippets
+
+```bash
+ffuf -c -w $wordlist -u $url/FUZZ -t $threads -v                     # Directorios
+ffuf -c -w $wordlist -u $url -t $threads -v                          # Parámetros GET 
+ffuf -c -w $wordlist -u $url -X POST -d "$post_data" -t $threads -v  # Formularios POST
+ffuf -c -w $wordlist -u FUZZ.$domain -t $threads -v                  # Subdominios
+```
+
 ## Table of Contents
 
-- [Overview](#overview)
 - [Installation](#installation)
 - [Basic Usage](#basic-usage)
 - [Filtering Options](#filtering-options)
@@ -19,10 +31,6 @@ import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
 - [Common Use Cases](#common-use-cases)
 - [Output Options](#output-options)
 - [Performance Tuning](#performance-tuning)
-
-## Overview
-
-Ffuf (Fuzz Faster U Fool) is a high-speed web fuzzer written in Go, designed for web application security testing and discovery.
 
 ## Installation
 

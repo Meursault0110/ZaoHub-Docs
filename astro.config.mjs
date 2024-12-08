@@ -65,12 +65,13 @@ export default defineConfig({
 						{label: "🔶 Git", link: "cheatsheets/git-cs"},
 						{label: "🔐 ssh", link: "cheatsheets/ssh-cs"},
 						{label: "🐳 Docker", link: "cheatsheets/docker-cs"},
-						{label: "🦈 Tshark", link: "cheatsheets/tshark-cs"},
+						{label: "🦈 WireShark / Tshark", link: "cheatsheets/tshark-cs"},
 						{
 							label: "CMS Tools",
 							collapsed: true,
 							items: [
 								{label: "WPscan (WordPress)", link: "#"},
+								{label: "CMSeeK", link: "#"},
 								{label: "Joomscan (Joomla)", link: "#"},
 								{label: "Droopescan (Drupal)", link: "#"},
 								{label: "Magescan (Magento)", link: "#"},
@@ -83,7 +84,8 @@ export default defineConfig({
 								{label: "SQL", link: "#"},
 								{label: "MySQL", link: "#"},
 								{label: "PostgreSQL", link: "#"},
-								{label: "NOSQL", link: "#"},
+								{label: "SQLite", link: "#"},
+								{label: "MongoDB", link: "#"},
 							],
 						},
 						{
@@ -168,10 +170,10 @@ export default defineConfig({
 							],
 						},
 						{
-							label: "🌐 Networking (CCNA 200-301)", link: "#"
+							label: "🌐 Networking (CCNA 200-301)", link: "it-fundamentals/networking/index-net"
 						},
 						{
-							label: "🛡 IT Sec (CompTIA Sec+-701)", link: "#"
+							label: "🛡 IT Sec (CompTIA Sec+-701)", link: "it-fundamentals/it-security/index-sec"
 						},
 					],
 				},
@@ -186,26 +188,21 @@ export default defineConfig({
 							label: "Design DBs", link: "#"
 						},
 						{
-							label: "Programming DBs", link: "#"
-
+							label: "Programming DBs", 
+							collapsed: true,
+							items: [
+								{label: "SQL", link: "#"},
+								{label: "MySQL", link: "#"},
+								{label: "PostgreSQL", link: "#"},
+								{label: "NOSQL", link: "#"},
+							]
 						},
 						{
-							label: "Data Analytics (Python)", link: "#"
+							label: "Interacting with Data (Python)", link: "#"
 
 						},
 					],
 				},
-				{
-					label: "🐧 Linux Hardening 🧨", 
-					collapsed: true,
-					items: [],
-				},
-				{
-					label: "⏹ Windows Hardening 🧨", 
-					collapsed: true,
-					items: [],
-				},
-
 				{
 					label: "⛩ Programación 🔰",
 					collapsed: true,
@@ -287,17 +284,19 @@ export default defineConfig({
 							label: "OPSEC",
 							collapsed: true,
 							items: [
-								{label: "0. Introduction", link: "privacy-opsec/opsec/0-introduction"},
-								{label: "1. Jolly Rogers", link: "privacy-opsec/opsec/1-jolly-rogers"},
-								{label: "2. Securing the OS (Hardening)", link: "privacy-opsec/opsec/2-securing-os"},
-								{label: "3. Hardware Spoofing", link: "privacy-opsec/opsec/3-hardware-spoofing"},
-								{label: "4. Encryption", link: "privacy-opsec/opsec/4-encryption"},
-								{label: "5. VMs (Qubes, Whonix, etc.)", link: "privacy-opsec/opsec/5-vms"},
-								{label: "6. VPSs, RDP & VPNs", link: "privacy-opsec/opsec/6-vps-rdp-vpn"},
-								{label: "7. Anonymous Crypto", link: "privacy-opsec/opsec/7-anon-crypto"},
-								{label: "8. Using PGP", link: "privacy-opsec/opsec/8-use-pgp"},
-								{label: "9. Anonymous Emails", link: "privacy-opsec/opsec/9-anon-mails"},
-								{label: "10. Final !!imp", link: "privacy-opsec/opsec/10-final"},
+								{label: "Introduction", link: "privacy-opsec/opsec/0-introduction"},
+								{label: "Securing the OS (Hardening)", link: "privacy-opsec/opsec/2-securing-os"},
+								{label: "🐧 Linux Hardening 🧨", link: "#"},
+								{label: "⏹ Windows Hardening 🧨", link: "#"},
+								{label: "🍏 macOS Hardening 🧨", link: "#"},
+								{label: "Hardware Spoofing", link: "privacy-opsec/opsec/3-hardware-spoofing"},
+								{label: "Encryption", link: "privacy-opsec/opsec/4-encryption"},
+								{label: "VMs (Qubes, Whonix, etc.)", link: "privacy-opsec/opsec/5-vms"},
+								{label: "VPSs, RDP & VPNs", link: "privacy-opsec/opsec/6-vps-rdp-vpn"},
+								{label: "Anonymous Crypto", link: "privacy-opsec/opsec/7-anon-crypto"},
+								{label: "Using PGP", link: "privacy-opsec/opsec/8-use-pgp"},
+								{label: "Anonymous Emails", link: "privacy-opsec/opsec/9-anon-mails"},
+								{label: "END", link: "privacy-opsec/opsec/10-final"},
 							],
 						},
 					],
@@ -391,7 +390,7 @@ export default defineConfig({
 							collapsed: true,
 							items: [
 								{ label: "Cross-site-Scripting", link: "#" },
-								{ label: "Local File Inclusion", link: "#" },
+								{ label: "File Inclusion/Path Traversal", link: "#" },
 								{ label: "Remote File Inclusion", link: "#" },
 								{ label: "Log Poisoning", link: "#" },
 								{ label: "Cross Site Request Forgery", link: "#" },
@@ -400,7 +399,7 @@ export default defineConfig({
 								{ label: "Client Side Server Injection", link: "#" },
 								{ label: "Type Jugling Attack", link: "#" },
 								{ label: "XML External Entity Injection", link: "#" },
-								{ label: "SQL Injection", link: "#" },
+								{ label: "SQL Injection", link: "web-pentesting/web-vulns/sqli" },
 								{ label: "NOSQL Injection", link: "#" },
 								{ label: "Header Injection", link: "#" },
 								{ label: "LDAP Injection", link: "#" },
